@@ -1,6 +1,6 @@
 {
   "name": "telescope-text",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An open-source library to help with creating expandable text",
   "main": "index.js",
   "scripts": {
