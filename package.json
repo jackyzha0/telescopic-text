@@ -1,0 +1,19 @@
+{
+  "name": "telescope-text",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jackyzha0/telescope-text.git"
+  },
+  "author": "Jacky Zhao",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jackyzha0/telescope-text/issues"
+  },
+  "homepage": "https://github.com/jackyzha0/telescope-text#readme"
+}

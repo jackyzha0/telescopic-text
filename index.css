@@ -1,0 +1,32 @@
+#telescope blockquote {
+  margin-left: 0;
+  padding-left: 1rem;
+  border-left: 3px solid #1f2021;
+  display: block !important;
+}
+
+#telescope .details {
+  display: inline;
+  border-radius: 3px;
+  background-color: #fcc16d55;
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+}
+
+#telescope .details.open {
+  background-color: transparent;
+  cursor: initial;
+}
+
+#telescope .details.open > .summary, #telescope .details.close > .expanded {
+  display: none;
+}
+
+#telescope .details.close:hover {
+  background-color: #fcc16d;
+}
+
+#telescope .details *, #telescope p * {
+  list-style: none;
+  display: inline;
+}
