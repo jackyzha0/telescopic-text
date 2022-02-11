@@ -1,5 +1,5 @@
 {
-  "name": "telescope-text",
+  "name": "telescopic-text",
   "version": "0.0.0",
   "description": "An open-source library to help with creating expandable text",
   "main": "index.js",
@@ -12,12 +12,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jackyzha0/telescope-text.git"
+    "url": "git+https://github.com/jackyzha0/telescopic-text.git"
   },
   "author": "Jacky Zhao",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/jackyzha0/telescope-text/issues"
+    "url": "https://github.com/jackyzha0/telescopic-text/issues"
   },
-  "homepage": "https://github.com/jackyzha0/telescope-text#readme"
+  "homepage": "https://github.com/jackyzha0/telescopic-text#readme"
 }
