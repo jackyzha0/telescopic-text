@@ -22,6 +22,10 @@ The package exports a function called `createTelescopicText` that returns a HTML
 Basic usage may look something like this:
 
 ```html
+<head>
+    <script src="https://unpkg.com/telescopic-text/index.js"></script>
+    <link href="https://unpkg.com/telescopic-text/index.css" rel="stylesheet">
+</head>
 <div id="text-container"></div>
 
 <script>
@@ -33,4 +37,22 @@ Basic usage may look something like this:
     const container = document.getElementById("text-container")
     container.appendChild(node)
 </script>
+```
+
+## Types
+```typescript
+interface Content {
+  text: string          // Original string content in the line
+  replacements: Line[]  // Sections of the original text to replace/expand
+}
+
+interface Line {
+  og: string           // the original string to replace
+  new: string          // the replacement string
+  replacements: Line[] // nested replacements to apply on the resultant line afterwards
+}
+
+// Default function to create a new `<div>` node containing the
+// telescoping text.
+function createTelescopicText(content: Content[])
 ```

@@ -4,10 +4,10 @@
 // interface Line {
 //    og: string          // the original string to replace
 //    new: string         // the replacement string
-//    replacement: Line[] // nested replacements to apply on the resultant line afterwards
+//    replacements: Line[] // nested replacements to apply on the resultant line afterwards
 // }
 // ```
-export function hydrate(line, node) {
+function hydrate(line, node) {
   let lineText = line.text || line.og
 
   if (line.replacements.length > 0) {
@@ -80,7 +80,7 @@ export function hydrate(line, node) {
 //    replacements: Line[]  // Sections of the original text to replace/expand
 // }
 // ```
-export function createTelescopicText(content) {
+function createTelescopicText(content) {
   const letter = document.createElement("div")
   letter.id = "telescope"
   content.forEach(line => {
@@ -94,4 +94,6 @@ export function createTelescopicText(content) {
   return letter
 }
 
-
+module.exports = {
+  createTelescopicText, hydrate
+}
