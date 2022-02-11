@@ -94,6 +94,8 @@ function createTelescopicText(content) {
   return letter
 }
 
-module.exports = {
-  createTelescopicText, hydrate
+if (module) {
+  module.exports = {
+    createTelescopicText, hydrate
+  }
 }
