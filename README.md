@@ -26,18 +26,22 @@ Basic usage may look something like this:
     <script src="https://unpkg.com/telescopic-text/index.js"></script>
     <link href="https://unpkg.com/telescopic-text/index.css" rel="stylesheet">
 </head>
+<body>
 <div id="text-container"></div>
 
 <script>
     const node = createTelescopicText([
         {text: "I made tea.", replacements: [
-            {og: "I", new: "Yawning, I", replacements: []}
-        ]}]
+                {og: "I", new: "Yawning, I", replacements: []}
+            ]}
     ])
     const container = document.getElementById("text-container")
     container.appendChild(node)
 </script>
+</body>
 ```
+
+You can check out a more detailed example in `example.html`
 
 ## Types
 ```typescript

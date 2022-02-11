@@ -1,7 +1,78 @@
+<head>
+    <script src="https://unpkg.com/telescopic-text/index.js"></script>
+    <link href="https://unpkg.com/telescopic-text/index.css" rel="stylesheet">
+    <title>boundless shapeshifters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="text-container">
+    <h2>boundless shapeshifters</h2>
+    <div id="text-container-inner"></div>
+    <p class="signoff">- spencer chang</p>
+</div>
+
 <script>
-  const content = [
-    {text: "I made tea.", replacements: [
-        {og: "I", new: "Yawning, I", replacements: []}
+  const node = createTelescopicText([
+    {text: "Texts are boundless shapeshifters, zealous freedom fighters, sacred holders of space.", replacements: [
+      {og: "Texts", new: "Melodies for words", replacements: [
+        {og: "Melodies", new: "Clear notes", replacements: [
+          {og: "Clear notes", new: "Clear notes, interdependent chords", replacements: [
+              {og: "Clear notes, interdependent chords", new: "Clear notes, interdependent chords, harmonic tones", replacements: []}
+          ]}
+        ]},
+        {og: "words", new: "communes of letters", replacements: [
+            {og: "letters", new: "curving letters", replacements: [
+                {og: "curving letters", new: "curving, elegant letters", replacements: []}
+            ]},
+        ]}
       ]},
-  ]
+      {og: "shapeshifters", new: "shapeshifters (technicolor chameleons)", replacements: [
+          {og: "technicolor chameleons", new: "technicolor chameleons, expanding universes", replacements: [
+              {og: "expanding universes", new: "expanding universes, vibrant dancers", replacements: []}
+          ]}
+      ]},
+      {og: "freedom fighters", new: "freedom fighters, champions of liberty", replacements: [
+        {og: "champions of liberty", new: "champions of liberty, harbingers of divinity", replacements: []}
+      ]},
+      {og: "sacred", new: "sacred (laden with *gravitas*)", replacements: [
+        {og: "laden with *gravitas*", new: "laden with *gravitas*, revered by followers", replacements: [
+          {og: "revered by followers", new: "revered by followers, imparts visceral feeling", replacements: []}
+        ]}
+      ]},
+      {og: "holders of space", new: "holders of space and keepers of time", replacements: [
+        {og: "holders of space and keepers of time", new: "holders of space and keepers of time and protectors of life", replacements: []}
+      ]},
+    ]}
+  ])
+  const container = document.getElementById("text-container-inner")
+  container.appendChild(node)
 </script>
+</body>
+<style>
+  body {
+    background: #ede8e4;
+  }
+
+  #text-container {
+    color: #141312;
+    margin: 30vh 35vw;
+    font-size: 1.3rem;
+    line-height: 2.5rem;
+    font-family: "Libre Baskerville", serif;
+  }
+
+  #telescope .details {
+    background-color: #95abe655;
+  }
+
+  #telescope .details.close:hover {
+    background-color: #95abe699;
+  }
+
+  .signoff {
+    font-size: 1rem;
+  }
+</style>
