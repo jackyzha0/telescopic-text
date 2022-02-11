@@ -9,6 +9,7 @@
 <body>
 
 <div id="text-container">
+    <img src="assets/spencer-image.png" alt="a painting of multiple abstract hands">
     <h2>boundless shapeshifters</h2>
     <div id="text-container-inner"></div>
     <p class="signoff">- spencer chang</p>
@@ -58,10 +59,30 @@
 
   #text-container {
     color: #141312;
-    margin: 30vh 35vw;
+    margin: 10vh 35vw;
     font-size: 1.3rem;
     line-height: 2.5rem;
     font-family: "Libre Baskerville", serif;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 2px;
+    margin-bottom: 3vh;
+    border: 2px solid #1c1716;
+    box-shadow: 5px 5px 41px 11px rgba(0,0,0,0.4);
+  }
+
+  @media only screen and (max-width: 1600px) {
+    #text-container {
+      margin: 10vh 15vw;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    #text-container {
+      margin: 10vh 5vw;
+    }
   }
 
   #telescope .details {
