@@ -9,7 +9,10 @@
 <body>
 
 <div id="text-container">
-    <img src="assets/spencer-image.png" alt="a painting of multiple abstract hands">
+    <figure>
+        <img src="assets/spencer-image.png" alt="54 Views by Tsherin Sherpa">
+        <figcaption>54 Views by Tsherin Sherpa</figcaption>
+    </figure>
     <h2>boundless shapeshifters</h2>
     <div id="text-container-inner"></div>
     <p class="signoff">- spencer chang</p>
@@ -68,9 +71,19 @@
   img {
     width: 100%;
     border-radius: 2px;
-    margin-bottom: 3vh;
     border: 2px solid #1c1716;
     box-shadow: 5px 5px 41px 11px rgba(0,0,0,0.4);
+  }
+
+  figure {
+    margin: 0 0 3vh;
+  }
+
+  figure > figcaption {
+    font-size: 1rem;
+    text-align: right;
+    font-style: italic;
+    opacity: 0.6;
   }
 
   @media only screen and (max-width: 1600px) {
