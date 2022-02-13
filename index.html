@@ -13,11 +13,20 @@
 </head>
 <body>
   <div id="text-container">
+    <ul id="">
+      <li>kelsey chen</li>
+      <li>spencer chang</li>
+      <li>jacky zhao</li>
+      <li>...</li>
+    </ul>
     <h2>the world is a sacred object</h2>
     <div id="text-container-inner"></div>
     <h2>peach pits</h2>
     <div id="text-container-inner-2"></div>
     <p class="signoff">- kelsey chen</p>
+    <h2>boundless shapeshifters</h2>
+    <div id="text-container-inner-3"></div>
+    <p class="signoff">- spencer chang</p>
   </div>
 
   <script>
@@ -64,21 +73,20 @@
 - my window
 - that hovers
 - without a neck.
-    - without a neck.
-        - without a neck. Gripping my own,
-        - I watch it drift.
-            - I watch it drift. Have you noticed how animals
-            - cover
-                - instinctively cover
-            - their bodies?
-                - the softest parts of their bodies?
-                    - the softest parts of their bodies,
-                    - the same way?
-                        - the same way
+    - without a neck. Gripping my own,
+    - I watch it drift.
+        - I watch it drift. Have you noticed how animals
+        - cover
+            - instinctively cover
+        - their bodies?
+            - the softest parts of their bodies?
+                - the softest parts of their bodies,
+                - the same way?
+                    - the same way
+                    - when in fear and in thought?
                         - when in fear and in thought?
-                            - when in fear and in thought?
-                            - Is it because thinking is fearful?
-                                - Is it because fearing is thoughtful?
+                        - Is it because thinking is fearful?
+                            - Is it because fearing is thoughtful?
 - I noticed
     - I noticed myself noticing
         - I held softly my neck, watching myself notice
@@ -127,6 +135,34 @@
         - two peach pits--tiny spiked hearts in the cold--
 - rolling.
     - rolling across that runway.`;
+    const spencer = `
+* Texts
+    * Melodies 
+        * clear notes
+            * clear notes, interdependent chords
+                * clear notes, interdependent chords, harmonic tones
+    * for
+    * words
+        * communes of
+        * letters
+            * curving letters 
+                * curving, elegant letters
+                    * curving, elegant, giving letters
+* are
+* boundless shapeshifters,
+    * boundless shapeshifters (technicolor chameleons),
+        * boundless shapeshifters (technicolor chameleons, expanding universes),
+            * boundless shapeshifters (technicolor chameleons, expanding universes, vibrant dancers),
+* zealous freedom fighters,
+    * zealous freedom fighters, champions of liberty,
+        * zealous freedom fighters, champions of liberty, harbingers of divinity
+* sacred
+    * sacred (laden with gravitas)
+        * sacred (laden with gravitas, revered by followers)
+            * sacred (laden with gravitas, revered by followers, imparts visceral feeling)
+* holders of space
+    * holders of space and keepers of time
+        * holders of space and keepers of time and protectors of life`;
 
     const node = createTelescopicText([parseMarkdownIntoContent(kels1)]);
     const container = document.getElementById("text-container-inner");
@@ -134,6 +170,9 @@
     const node2 = createTelescopicText([parseMarkdownIntoContent(kels2)]);
     const container2 = document.getElementById("text-container-inner-2");
     container2.appendChild(node2);
+    const node3 = createTelescopicText([parseMarkdownIntoContent(spencer)]);
+    const container3 = document.getElementById("text-container-inner-3");
+    container3.appendChild(node3);
   </script>
 </body>
 <style>
