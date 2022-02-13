@@ -21,9 +21,6 @@
     "url": "https://github.com/jackyzha0/telescopic-text/issues"
   },
   "homepage": "https://github.com/jackyzha0/telescopic-text#readme",
-  "dependencies": {
-    "marked": "^4.0.12"
-  },
   "devDependencies": {
     "@types/marked": "^4.0.2",
     "@types/node": "^17.0.17",

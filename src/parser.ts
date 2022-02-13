@@ -1,5 +1,3 @@
-import { marked } from "marked";
-
 interface Line {
   og: string; // the original string to replace
   new: string; // the replacement string
@@ -34,9 +32,11 @@ export function parseMarkdown(
   mdContent: string,
   separator: string = " "
 ): TelescopicOutput {
+  // In future we might want to support full markdown in which case..
   //   const html = marked.parse(mdContent);
   //  convert into jsdom
   //   const lines = html.split("\n");
+  // Also idea for "..." or ellipsis character to repreesnt infinite expansion.
 
   const BulletSeparators = ["*", "-", "+"];
   const RegexEscapedBulletSeparators = ["\\*", "-", "\\+"];
@@ -128,39 +128,6 @@ export function parseOutputIntoContent(
   return { text, replacements };
 }
 
-const testInput = `
-* Texts
-	* Melodies 
-		* clear notes
-			* clear notes, interdependent chords
-	* for
-	* words
-		* communes of
-		* letters
-* are
-* boundless shapeshifters,`;
-
-// depth = 1
-// node = {text}
-// look up last depth = 0, concat to expansions
-//
-const testOutput: NewContent[] = [
-  {
-    text: "Texts",
-    expansions: [
-      {
-        text: "Melodies",
-      },
-    ],
-  },
-  {
-    text: "are",
-  },
-  {
-    text: "boundless shapeshifters,",
-  },
-];
-
 export function parseMarkdownIntoContent(
   mdContent: string,
   separator: string = " "
@@ -168,44 +135,3 @@ export function parseMarkdownIntoContent(
   const output = parseMarkdown(mdContent, separator);
   return parseOutputIntoContent(output, separator);
 }
-
-// const parsedMd = parseMarkdown(testInput);
-// console.log(parsedMd);
-// console.log("********");
-// console.log(parseOutputIntoContent(parsedMd));
-// const kels1 = `- the world
-//     - all of it
-//         - all that
-//         - is
-//             - exists
-//                 - is moved
-//                     - is moving
-//                         - breathes
-//                             - has ever existed, including you
-// - is
-//     - is always
-//         - is irrevocably
-// - a sacred object
-//     - a sacred thing
-//         - something moving
-//             - something waiting to be moved
-//                 - something awaiting dialogue
-//                     - called into communion
-//                         - a condensation of vital breath
-//                             - anima
-//                                 - there
-//                                     - here
-//                                         - an immovably sacred object
-//                                             - an immovably sacred object, and nothing is to be done to it.
-//                                                 - an immovably sacred object,
-//                                                 - and nothing
-//                                                 - is to be
-//                                                 - done about it.
-//                                                     - done to it--
-//                                                     - to seize it
-//                                                         - to take it for yourself
-//                                                             - to try and keep it
-//                                                                 - to try to grasp it
-//                                                     - is to lose it.
-//                                                         - is to lose yourself.`;
-// console.log(parseMarkdownIntoContent(kels1));
