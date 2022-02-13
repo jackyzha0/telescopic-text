@@ -1,0 +1,193 @@
+<head>
+  <!-- <script src="https://unpkg.com/telescopic-text/index.js"></script> -->
+  <script src="./lib/parser.js"></script>
+  <script src="./lib/index.js"></script>
+  <link href="https://unpkg.com/telescopic-text/index.css" rel="stylesheet" />
+  <title>the world is a sacred object</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div id="text-container">
+    <h2>the world is a sacred object</h2>
+    <div id="text-container-inner"></div>
+    <h2>peach pits</h2>
+    <div id="text-container-inner-2"></div>
+    <p class="signoff">- kelsey chen</p>
+  </div>
+
+  <script>
+    const kels1 = `
+- the world
+    - all of it
+        - all that
+        - is
+            - exists
+                - is moved
+                    - is moving
+                        - breathes
+                            - has ever existed, including you
+- is
+    - is always
+        - is irrevocably
+- a sacred object
+    - a sacred thing
+        - something moving
+            - something waiting to be moved
+                - something awaiting dialogue
+                    - called into communion
+                        - a condensation of vital breath
+                            - anima
+                                - there
+                                    - here
+                                        - an immovably sacred object
+                                            - an immovably sacred object, and nothing is to be done to it.
+                                                - an immovably sacred object,
+                                                - and nothing
+                                                - is to be
+                                                - done about it.
+                                                    - done to it--
+                                                    - to seize it
+                                                        - to take it for yourself
+                                                            - to try and keep it
+                                                                - to try to grasp it
+                                                    - is to lose it.
+                                                        - is to lose yourself.`;
+    const kels2 = `
+- There is
+- a peach tree
+- outside
+- my window
+- that hovers
+- without a neck.
+    - without a neck.
+        - without a neck. Gripping my own,
+        - I watch it drift.
+            - I watch it drift. Have you noticed how animals
+            - cover
+                - instinctively cover
+            - their bodies?
+                - the softest parts of their bodies?
+                    - the softest parts of their bodies,
+                    - the same way?
+                        - the same way
+                        - when in fear and in thought?
+                            - when in fear and in thought?
+                            - Is it because thinking is fearful?
+                                - Is it because fearing is thoughtful?
+- I noticed
+    - I noticed myself noticing
+        - I held softly my neck, watching myself notice
+- not
+- the rain
+- but
+- the blue.
+    - the blue. The runway
+    - was iced.
+        - was iced: It took an hour to
+        - defrost.
+            - let go of its own body.
+    - The salt
+        - The salt turning asphalt
+            - The salt turning sleet soft asphalt
+    - an uncanny
+        - an uncanny kind of
+    - gem.
+- Even in
+- all this
+- it
+    - what is tensed across scale
+        - what is tensed across scale is
+        - beautiful
+            - unutterably beautiful
+        - like that. This thing
+- was my favorite.
+    - was my favorite to see.
+        - was my favorite to see. The warm light against such an atmospheric cold.
+- I wanted
+    - On that runway, I wanted
+- to run away.
+    - to run away very badly.
+        - to run away very badly; I didn't know that
+        - things
+            - two things
+                - two things so starkly different
+        - could be
+        - soft together.
+            - so soft together.
+                - tender like that, with each other.
+                    - tender like that, with each other. Knowing the dusk and not the chokehold.
+- I thought I saw 
+- peach pits 
+    - two peach pits
+        - two peach pits--tiny spiked hearts in the cold--
+- rolling.
+    - rolling across that runway.`;
+
+    const node = createTelescopicText([parseMarkdownIntoContent(kels1)]);
+    const container = document.getElementById("text-container-inner");
+    container.appendChild(node);
+    const node2 = createTelescopicText([parseMarkdownIntoContent(kels2)]);
+    const container2 = document.getElementById("text-container-inner-2");
+    container2.appendChild(node2);
+  </script>
+</body>
+<style>
+  body {
+    background: #ede8e4;
+  }
+
+  #text-container {
+    color: #141312;
+    margin: 10vh 35vw;
+    font-size: 1.3rem;
+    line-height: 2.5rem;
+    font-family: "Libre Baskerville", serif;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 2px;
+    border: 2px solid #1c1716;
+    box-shadow: 5px 5px 41px 11px rgba(0, 0, 0, 0.4);
+  }
+
+  figure {
+    margin: 0 0 3vh;
+  }
+
+  figure > figcaption {
+    font-size: 1rem;
+    text-align: right;
+    font-style: italic;
+    opacity: 0.6;
+  }
+
+  @media only screen and (max-width: 1600px) {
+    #text-container {
+      margin: 10vh 15vw;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    #text-container {
+      margin: 10vh 5vw;
+    }
+  }
+
+  #telescope .details {
+    background-color: #e6cf9555;
+  }
+
+  #telescope .details.close:hover {
+    background-color: #95abe699;
+  }
+
+  .signoff {
+    font-size: 1rem;
+  }
+</style>
