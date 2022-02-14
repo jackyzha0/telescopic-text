@@ -29,7 +29,7 @@ At any point, you can break up the full sentence into separate lines. Bullets at
 
 The above example would yield the following text: "Texts are boundless shapeshifters, zealous freedom fighters, sacred holders of space" where "Texts" is expandable into "Clear notes" and "are boundless shapeshifters" is expandable into "are limitless shapeshifters".
 
-*NOTE*: the parsing logic is still a little sensitive to indentation of the bullets, so for most compatible experience, you should normalize the indentations so that each nested bullet is differentiated by one space.
+*NOTE*: the parsing logic is robust to different indentation levels, but for most compatible experience, you should normalize the indentations so that each nested bullet is differentiated by a standard set of spaces. We also currently only support `*`, `-`, and `+` bullet indicators.
 
 ## Usage
 You can load it directly using a CDN as follows
@@ -41,9 +41,9 @@ You can load it directly using a CDN as follows
 
 or manually include the `lib/index.js` and `lib/index.css` files in your project.
 
-The package exports a function called `createTelescopicText` that returns a HTMLNode with your telescopic text inside.
-Basic usage may look something like this:
+The package exports a function called `createTelescopicTextFromBulletedList` that parses a bulleted list and returns a HTMLNode with your telescopic text inside.
 
+Basic usage may look something like this:
 ```html
 <head>
     <script src="https://unpkg.com/telescopic-text/lib/index.js"></script>
@@ -53,18 +53,18 @@ Basic usage may look something like this:
 <div id="text-container"></div>
 
 <script>
-    const node = createTelescopicText([
-        {text: "I made tea.", replacements: [
-                {og: "I", new: "Yawning, I", replacements: []}
-            ]}
-    ])
-    const container = document.getElementById("text-container")
-    container.appendChild(node)
+    const content = `
+* I 
+  * Yawning, I
+* made tea`;
+    const node = createTelescopicTextFromBulletedList(content);
+    const container = document.getElementById("text-container");
+    container.appendChild(node);
 </script>
 </body>
 ```
 
-You can check out a more detailed example in `example.html`
+You can check out a more detailed example in `index.html`
 
 ## Types
 ```typescript
