@@ -1,5 +1,7 @@
 # 🔭 Telescopic Text
 
+[![](https://img.shields.io/npm/v/telescopic-text?style=flat-square)](https://www.npmjs.com/package/telescopic-text)
+
 An open-source library to help with creating expandable text. 
 
 Inspired by [StretchText](https://en.wikipedia.org/wiki/StretchText) and [TelescopicText](https://www.telescopictext.org/text/KPx0nlXlKTciC).
