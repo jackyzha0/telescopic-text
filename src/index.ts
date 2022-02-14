@@ -96,15 +96,11 @@ function _hydrate(line: Content, node: any) {
 function createTelescopicText(content: Content[]) {
   const letter = document.createElement("div");
   letter.id = "telescope";
-  content
-    .forEach((line) => {
-      const newNode = document.createElement("p");
-
-      // hydrate new p tag with content
-      _hydrate(line, newNode);
-
-      letter.appendChild(newNode);
-    });
+  content.forEach((line) => {
+    const newNode = document.createElement("p");
+    _hydrate(line, newNode);
+    letter.appendChild(newNode);
+  });
   return letter;
 }
 
