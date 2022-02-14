@@ -91,6 +91,6 @@ interface NewContent {
 }
 ```
 
-## Expansion Ideas
-- supporting infinite expansion with `...`?
-- concept of shapeshifting text in general.. these are not always expansions.
+## Future Work
+- Supporting infinite expansion with `...`
+- Concept of shapeshifting text in general... these are not always expansions.
