@@ -8,6 +8,27 @@ I've been thinking a lot about creating a browsable store of knowledge that prov
 (e.g. viewing the entire library, just a subcategory, a single file, etc.) and concepts like Telescopic Text are a first step
 in creating more information scales than just a single document level.
 
+This library is meant to be the start for anyone to create telescopic text, including those who are non-technical. 
+
+## Creating a telescopic text
+To create some telescopic text, you can use your favorite note-taking app or text editor that supports bullet lists and start by writing a full sentence or two in a starting bullet:
+```
+* Texts are boundless shapeshifters, zealous freedom fighters, sacred holders of space
+```
+
+At any point, you can break up the full sentence into separate lines. Bullets at the same indentation level are combined into the same sentence, and any indented bullets will be used as an expansion point for the parent bullet. By default, items on the same indentation level will be combined with a space ` `, but you can pass in a custom `separator` into the parsing function.
+```
+* Texts
+  * Clear notes
+* are boundless shapeshifters,
+  * are limitless shapeshifters,
+* zealous freedom fighters, sacred holders of space 
+```
+
+The above example would yield the following text: "Texts are boundless shapeshifters, zealous freedom fighters, sacred holders of space" where "Texts" is expandable into "Clear notes" and "are boundless shapeshifters" is expandable into "are limitless shapeshifters".
+
+*NOTE*: the parsing logic is still a little sensitive to indentation of the bullets, so for most compatible experience, you should normalize the indentations so that each nested bullet is differentiated by one space.
+
 ## Usage
 You can load it directly using a CDN as follows
 
@@ -59,4 +80,17 @@ interface Line {
 // Default function to create a new `<div>` node containing the
 // telescoping text.
 function createTelescopicText(content: Content[])
+
+// This is the fundamental data structure for parsing native bullet lists into telescoping text.
+interface NewContent {
+  text: string;
+  expansions?: NewContent[];
+  // This is always a space right now, but could be extended to use any
+  // separator between content.
+  separator?: string;
+}
 ```
+
+## Expansion Ideas
+- supporting infinite expansion with `...`?
+- concept of shapeshifting text in general.. these are not always expansions.

@@ -1,10 +1,10 @@
-interface Line {
+export interface Line {
   og: string; // the original string to replace
   new: string; // the replacement string
   replacements: Line[]; // nested replacements to apply on the resultant line afterwards
 }
 
-interface Content {
+export interface Content {
   text: string; // Original string content in the line
   replacements: Line[]; // Sections of the original text to replace/expand
 }
@@ -12,6 +12,8 @@ interface Content {
 interface NewContent {
   text: string;
   expansions?: NewContent[];
+  // This is always a space right now, but could be extended to use any
+  // separator between content.
   separator?: string;
 }
 
@@ -28,9 +30,7 @@ interface Node {
  * @param mdContent full string of markdown content that is formatted as a unorederd bulleted list
  * @returns
  */
-export function parseMarkdown(
-  mdContent: string
-): TelescopicOutput {
+export function parseMarkdown(mdContent: string): TelescopicOutput {
   // In future we might want to support full markdown in which case..
   //   const html = marked.parse(mdContent);
   //  convert into jsdom
