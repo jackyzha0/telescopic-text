@@ -1,14 +1,17 @@
+interface Line {
+  og: string          // the original string to replace
+  new: string         // the replacement string
+  replacements: Line[] // nested replacements to apply on the resultant line afterwards
+}
+
+interface Content {
+   text: string          // Original string content in the line
+   replacements: Line[]  // Sections of the original text to replace/expand
+}
+
 // Internal recursive function to hydrate a node with a line object.
-// Line object is in the form of:
-// ```
-// interface Line {
-//    og: string          // the original string to replace
-//    new: string         // the replacement string
-//    replacements: Line[] // nested replacements to apply on the resultant line afterwards
-// }
-// ```
-function hydrate(line: any, node: any) {
-  let lineText = line.text || line.og;
+export function hydrate(line: Content, node: any) {
+  let lineText = line.text;
 
   if (line.replacements.length > 0) {
     // only iterate lines if there are actually things to replace
@@ -76,33 +79,20 @@ function hydrate(line: any, node: any) {
 }
 
 // Default function to create a new `<div>` node containing the
-// telescoping text. `content` is of type `Content[]` where `Content` is
-// ```
-// interface Content {
-//    text: string          // Original string content in the line
-//    replacements: Line[]  // Sections of the original text to replace/expand
-// }
-// ```
-function createTelescopicText(content: any) {
+// telescoping text.
+export function createTelescopicText(content: Content[]) {
   const letter = document.createElement("div");
   letter.id = "telescope";
-  content.forEach((line: any) => {
-    const newNode = document.createElement("p");
+  content
+    .forEach((line) => {
+      const newNode = document.createElement("p");
 
-    // hydrate new p tag with content
-    hydrate(line, newNode);
+      // hydrate new p tag with content
+      hydrate(line, newNode);
 
-    letter.appendChild(newNode);
-  });
+      letter.appendChild(newNode);
+    });
   return letter;
 }
 
-import * as parser from "./parser";
-
-if (module) {
-  module.exports = {
-    createTelescopicText,
-    hydrate,
-    ...parser,
-  };
-}
+export * from './parser';

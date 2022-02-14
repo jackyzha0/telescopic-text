@@ -1,15 +1,14 @@
 {
   "name": "telescopic-text",
   "version": "1.0.2",
-  "description": "An open-source library to help with creating expandable text",
+  "description": "A open-source library to help with creating expandable text",
   "main": "index.js",
   "scripts": {
     "build": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
-    "index.js",
-    "index.css"
+    "lib"
   ],
   "repository": {
     "type": "git",

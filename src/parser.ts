@@ -29,8 +29,7 @@ interface Node {
  * @returns
  */
 export function parseMarkdown(
-  mdContent: string,
-  separator: string = " "
+  mdContent: string
 ): TelescopicOutput {
   // In future we might want to support full markdown in which case..
   //   const html = marked.parse(mdContent);
@@ -132,6 +131,6 @@ export function parseMarkdownIntoContent(
   mdContent: string,
   separator: string = " "
 ): Content {
-  const output = parseMarkdown(mdContent, separator);
+  const output = parseMarkdown(mdContent);
   return parseOutputIntoContent(output, separator);
 }
