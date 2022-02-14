@@ -91,9 +91,9 @@ function _hydrate(line: Content, node: any) {
   }
 }
 
-// Default function to create a new `<div>` node containing the
+// Helper function to create a new `<div>` node containing the
 // telescoping text.
-function createTelescopicText(content: Content[]) {
+function _createTelescopicText(content: Content[]) {
   const letter = document.createElement("div");
   letter.id = "telescope";
   content.forEach((line) => {
@@ -104,10 +104,12 @@ function createTelescopicText(content: Content[]) {
   return letter;
 }
 
+/*****************/
+/* PARSING LOGIC */
+/*****************/
+
 // Parses the input string and returns the output as a structured data format.
-function parseMarkdown(
-  mdContent: string
-): TelescopicOutput {
+function _parseMarkdown(mdContent: string): TelescopicOutput {
   // In future we might want to support full markdown in which case..
   //   const html = marked.parse(mdContent);
   //  convert into jsdom
@@ -148,7 +150,7 @@ function parseMarkdown(
       nodeStack.length - 1 >= 0 &&
       currentDepth <= nodeStack[nodeStack.length - 1].depth &&
       nodeStack[nodeStack.length - 1].depth > 0
-      ) {
+    ) {
       nodeStack.pop();
     }
 
@@ -176,7 +178,8 @@ function parseMarkdown(
   return root;
 }
 
-function parseOutputIntoContent(
+// Ideally this would not be needed (just used to convert between data structures currently).
+function _parseOutputIntoContent(
   output: TelescopicOutput,
   separator: string = " "
 ): Content {
@@ -204,10 +207,26 @@ function parseOutputIntoContent(
   return { text, replacements };
 }
 
-function parseMarkdownIntoContent(
+// Ideally this would not be needed (just used to convert between data structures currently).
+function _parseMarkdownIntoContent(
   mdContent: string,
   separator: string = " "
 ): Content {
-  const output = parseMarkdown(mdContent);
-  return parseOutputIntoContent(output, separator);
+  const output = _parseMarkdown(mdContent);
+  return _parseOutputIntoContent(output, separator);
+}
+
+/**
+ * Parses a markdown-compatible bulleted list into an HTML div that contains the telescoping text specified by the bullet list content.
+ *
+ * @param listContent - Content in the form of a bulleted list where items on the same level are combined using the `separator` parameter.
+ * @param separator - character to divide items on the same indentation level.
+ * @returns HTML div containing the telescoping text.
+ */
+function createTelescopicTextFromBulletedList(
+  listContent: string,
+  separator: string = " "
+): HTMLDivElement {
+  const content = _parseMarkdownIntoContent(listContent, separator);
+  return _createTelescopicText([content]);
 }

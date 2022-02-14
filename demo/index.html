@@ -1,25 +1,31 @@
 <head>
-    <script src="https://unpkg.com/telescopic-text/lib/index.js"></script>
-    <link href="https://unpkg.com/telescopic-text/lib/index.css" rel="stylesheet">
-    <title>boundless shapeshifters</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <script src="../lib/index.js"></script>
+  <!-- <script src="https://unpkg.com/telescopic-text/lib/index.js"></script> -->
+  <link
+    href="https://unpkg.com/telescopic-text/lib/index.css"
+    rel="stylesheet"
+  />
+  <title>boundless shapeshifters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
 </head>
 <body>
-
-<div id="text-container">
+  <div id="text-container">
     <figure>
-        <img src="../assets/spencer-image.png" alt="54 Views by Tsherin Sherpa">
-        <figcaption>54 Views by Tsherin Sherpa</figcaption>
+      <img src="../assets/spencer-image.png" alt="54 Views by Tsherin Sherpa" />
+      <figcaption>54 Views by Tsherin Sherpa</figcaption>
     </figure>
     <h2>boundless shapeshifters</h2>
     <div id="text-container-inner"></div>
     <p class="signoff">- spencer chang</p>
-</div>
+  </div>
 
-<script>
-  const poem = `
+  <script>
+    const poem = `
 * Texts
     * Melodies
         * clear notes
@@ -47,11 +53,10 @@
 * holders of space
     * holders of space and keepers of time
         * holders of space and keepers of time and protectors of life`;
-  const content = parseMarkdownIntoContent(poem)
-  const node = createTelescopicText([content])
-  const container = document.getElementById("text-container-inner")
-  container.appendChild(node)
-</script>
+    const node = createTelescopicTextFromBulletedList(poem);
+    const container = document.getElementById("text-container-inner");
+    container.appendChild(node);
+  </script>
 </body>
 <style>
   body {
@@ -70,7 +75,7 @@
     width: 100%;
     border-radius: 2px;
     border: 2px solid #1c1716;
-    box-shadow: 5px 5px 41px 11px rgba(0,0,0,0.4);
+    box-shadow: 5px 5px 41px 11px rgba(0, 0, 0, 0.4);
   }
 
   figure {
