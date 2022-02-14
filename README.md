@@ -64,7 +64,7 @@ Basic usage may look something like this:
 </body>
 ```
 
-You can check out a more detailed example in `index.html`
+You can check out a more detailed example in `demo/index.html`
 
 ## Types
 ```typescript
@@ -80,8 +80,8 @@ interface Line {
 }
 
 // Default function to create a new `<div>` node containing the
-// telescoping text.
-function createTelescopicText(content: Content[])
+// telescoping text from bullet points
+function createTelescopicTextFromBulletedList(content: string)
 
 // This is the fundamental data structure for parsing native bullet lists into telescoping text.
 interface NewContent {
