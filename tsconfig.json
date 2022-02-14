@@ -1,11 +1,16 @@
 {
   "compilerOptions": {
-    "declaration": true,
     "outDir": "./lib",
-    "target": "es5",
-    "module": "es2015",
+    "sourceMap": true,
+    "declaration": true,
     "moduleResolution": "node",
-    "lib": ["es2016", "dom", "es5"]
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es5",
+    "lib": [
+      "es2019",
+      "dom"
+    ]
   },
   "include": ["src/"],
   "exclude": ["node_modules", "**/__tests__/*"]
