@@ -23,7 +23,7 @@ interface TelescopeNode {
 }
 
 // Internal recursive function to hydrate a node with a line object.
-function hydrate(line: Content, node: any) {
+function _hydrate(line: Content, node: any) {
   let lineText = line.text;
 
   if (line.replacements.length > 0) {
@@ -63,7 +63,7 @@ function hydrate(line: Content, node: any) {
       };
       const expanded = document.createElement("span");
       expanded.classList.add("expanded");
-      hydrate(newLine, expanded);
+      _hydrate(newLine, expanded);
 
       // append to parent
       detail.appendChild(expanded);
@@ -101,19 +101,14 @@ function createTelescopicText(content: Content[]) {
       const newNode = document.createElement("p");
 
       // hydrate new p tag with content
-      hydrate(line, newNode);
+      _hydrate(line, newNode);
 
       letter.appendChild(newNode);
     });
   return letter;
 }
 
-/**
- * Parses the input string and returns the output as a structured data format.
- *
- * @param mdContent full string of markdown content that is formatted as a unorederd bulleted list
- * @returns
- */
+// Parses the input string and returns the output as a structured data format.
 function parseMarkdown(
   mdContent: string
 ): TelescopicOutput {
