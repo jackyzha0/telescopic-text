@@ -1,12 +1,4 @@
-interface Line {
-    og: string;
-    new: string;
-    replacements: Line[];
-}
-interface Content {
-    text: string;
-    replacements: Line[];
-}
+import { Content } from "./parser";
 export declare function hydrate(line: Content, node: any): void;
 export declare function createTelescopicText(content: Content[]): HTMLDivElement;
 export * from './parser';

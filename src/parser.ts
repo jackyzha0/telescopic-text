@@ -1,23 +1,23 @@
-interface Line {
+export interface Line {
   og: string; // the original string to replace
   new: string; // the replacement string
   replacements: Line[]; // nested replacements to apply on the resultant line afterwards
 }
 
-interface Content {
+export interface Content {
   text: string; // Original string content in the line
   replacements: Line[]; // Sections of the original text to replace/expand
 }
 
-interface NewContent {
+export interface NewContent {
   text: string;
   expansions?: NewContent[];
   separator?: string;
 }
 
-type TelescopicOutput = NewContent[];
+export type TelescopicOutput = NewContent[];
 
-interface Node {
+export interface Node {
   depth: number;
   telescopicOut: TelescopicOutput;
 }

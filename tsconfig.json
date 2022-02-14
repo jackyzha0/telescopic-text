@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es2019",
-    "module": "commonjs",
     "declaration": true,
     "outDir": "./lib",
-    "strict": true
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "lib": ["es2016", "dom", "es5"]
   },
-  "include": ["index.js", "src/"],
+  "include": ["src/"],
   "exclude": ["node_modules", "**/__tests__/*"]
 }

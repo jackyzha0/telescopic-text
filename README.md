@@ -12,19 +12,19 @@ in creating more information scales than just a single document level.
 You can load it directly using a CDN as follows
 
 ```html
-<script src="https://unpkg.com/telescopic-text/index.js"></script>
-<link href="https://unpkg.com/telescopic-text/index.css" rel="stylesheet">
+<script src="https://unpkg.com/telescopic-text/lib/index.js"></script>
+<link href="https://unpkg.com/telescopic-text/lib/index.css" rel="stylesheet">
 ```
 
-or manually include the `index.js` and `index.css` files in your project.
+or manually include the `lib/index.js` and `lib/index.css` files in your project.
 
 The package exports a function called `createTelescopicText` that returns a HTMLNode with your telescopic text inside.
 Basic usage may look something like this:
 
 ```html
 <head>
-    <script src="https://unpkg.com/telescopic-text/index.js"></script>
-    <link href="https://unpkg.com/telescopic-text/index.css" rel="stylesheet">
+    <script src="https://unpkg.com/telescopic-text/lib/index.js"></script>
+    <link href="https://unpkg.com/telescopic-text/lib/index.css" rel="stylesheet">
 </head>
 <body>
 <div id="text-container"></div>

@@ -1,13 +1,4 @@
-interface Line {
-  og: string          // the original string to replace
-  new: string         // the replacement string
-  replacements: Line[] // nested replacements to apply on the resultant line afterwards
-}
-
-interface Content {
-   text: string          // Original string content in the line
-   replacements: Line[]  // Sections of the original text to replace/expand
-}
+import { Content } from "./parser";
 
 // Internal recursive function to hydrate a node with a line object.
 export function hydrate(line: Content, node: any) {
