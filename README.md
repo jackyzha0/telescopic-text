@@ -32,14 +32,18 @@ The above example would yield the following text: "Texts are boundless shapeshif
 *NOTE*: the parsing logic is robust to different indentation levels, but for most compatible experience, you should normalize the indentations so that each nested bullet is differentiated by a standard set of spaces. We also currently only support `*`, `-`, and `+` bullet indicators.
 
 ## Usage
-You can load it directly using a CDN as follows
+You can load it directly via CDN as follows:
+Put this anywhere inside the `head` of your HTML file.
 
 ```html
-<script src="https://unpkg.com/telescopic-text/lib/index.js"></script>
-<link href="https://unpkg.com/telescopic-text/lib/index.css" rel="stylesheet">
+<head>
+  ...
+  <script src="https://unpkg.com/telescopic-text/lib/index.js"></script>
+  <link href="https://unpkg.com/telescopic-text/lib/index.css" rel="stylesheet">
+</head>
 ```
 
-or manually include the `lib/index.js` and `lib/index.css` files in your project.
+or if you prefer to do the manual way, you can include the `lib/index.js` and `lib/index.css` files in your project.
 
 The package exports a function called `createTelescopicTextFromBulletedList` that parses a bulleted list and returns a HTMLNode with your telescopic text inside.
 
@@ -50,17 +54,17 @@ Basic usage may look something like this:
     <link href="https://unpkg.com/telescopic-text/lib/index.css" rel="stylesheet">
 </head>
 <body>
-<div id="text-container"></div>
+  <div id="text-container"></div>
 
-<script>
-    const content = `
-* I 
-  * Yawning, I
-* made tea`;
-    const node = createTelescopicTextFromBulletedList(content);
-    const container = document.getElementById("text-container");
-    container.appendChild(node);
-</script>
+  <script>
+      const content = `
+  * I 
+    * Yawning, I
+  * made tea`;
+      const node = createTelescopicTextFromBulletedList(content);
+      const container = document.getElementById("text-container");
+      container.appendChild(node);
+  </script>
 </body>
 ```
 
