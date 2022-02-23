@@ -22,8 +22,11 @@ interface TelescopeNode {
   telescopicOut: TelescopicOutput;
 }
 
+// time; recorded to prevent recursive text expansion on single hover
+let lastTime = Date.now();
+
 // Internal recursive function to hydrate a node with a line object.
-function _hydrate(line: Content, node: any) {
+function _hydrate(line: Content, node: any, hoverable: boolean = false) {
   let lineText = line.text;
 
   if (line.replacements.length > 0) {
@@ -51,6 +54,18 @@ function _hydrate(line: Content, node: any) {
         detail.classList.add("open");
       });
 
+      // if the text is hoverable,
+      if (hoverable) {
+        // expand the text if text was not moused over immediately before
+        detail.addEventListener("mouseover", () => {
+          if (Date.now() - lastTime > 10) {
+            detail.classList.remove("close");
+            detail.classList.add("open");
+            lastTime = Date.now();
+          }
+        });
+      }
+
       const summary = document.createElement("span");
       summary.classList.add("summary");
       summary.appendChild(document.createTextNode(replacement.og));
@@ -63,7 +78,7 @@ function _hydrate(line: Content, node: any) {
       };
       const expanded = document.createElement("span");
       expanded.classList.add("expanded");
-      _hydrate(newLine, expanded);
+      _hydrate(newLine, expanded, hoverable);
 
       // append to parent
       detail.appendChild(expanded);
@@ -93,12 +108,12 @@ function _hydrate(line: Content, node: any) {
 
 // Helper function to create a new `<div>` node containing the
 // telescoping text.
-function _createTelescopicText(content: Content[]) {
+function _createTelescopicText(content: Content[], hoverable: boolean = false) {
   const letter = document.createElement("div");
   letter.id = "telescope";
   content.forEach((line) => {
     const newNode = document.createElement("p");
-    _hydrate(line, newNode);
+    _hydrate(line, newNode, hoverable);
     letter.appendChild(newNode);
   });
   return letter;
@@ -225,8 +240,9 @@ function _parseMarkdownIntoContent(
  */
 function createTelescopicTextFromBulletedList(
   listContent: string,
-  separator: string = " "
+  separator: string = " ",
+  hoverable: boolean = false,
 ): HTMLDivElement {
   const content = _parseMarkdownIntoContent(listContent, separator);
-  return _createTelescopicText([content]);
+  return _createTelescopicText([content], hoverable);
 }

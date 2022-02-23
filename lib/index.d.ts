@@ -17,8 +17,9 @@ interface TelescopeNode {
     depth: number;
     telescopicOut: TelescopicOutput;
 }
-declare function _hydrate(line: Content, node: any): void;
-declare function _createTelescopicText(content: Content[]): HTMLDivElement;
+declare let lastTime: number;
+declare function _hydrate(line: Content, node: any, hoverable?: boolean): void;
+declare function _createTelescopicText(content: Content[], hoverable?: boolean): HTMLDivElement;
 /*****************/
 /*****************/
 declare function _parseMarkdown(mdContent: string): TelescopicOutput;
@@ -31,4 +32,4 @@ declare function _parseMarkdownIntoContent(mdContent: string, separator?: string
  * @param separator - character to divide items on the same indentation level.
  * @returns HTML div containing the telescoping text.
  */
-declare function createTelescopicTextFromBulletedList(listContent: string, separator?: string): HTMLDivElement;
+declare function createTelescopicTextFromBulletedList(listContent: string, separator?: string, hoverable?: boolean): HTMLDivElement;
