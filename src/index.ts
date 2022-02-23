@@ -23,6 +23,9 @@ interface TelescopeNode {
 }
 
 interface Config {
+  /**
+  * Character used to separate entries on the same level. Defaults to a single space (" ")
+  */
   separator?: string;
   hoverable?: boolean;
 }
