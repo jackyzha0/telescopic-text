@@ -17,7 +17,12 @@ interface TelescopeNode {
     depth: number;
     telescopicOut: TelescopicOutput;
 }
-declare let lastTime: number;
+interface Config {
+    separator?: string;
+    hoverable?: boolean;
+}
+declare const _DEFAULT_CONFIG: Config;
+declare let _lastHoveredTime: number;
 declare function _hydrate(line: Content, node: any, hoverable?: boolean): void;
 declare function _createTelescopicText(content: Content[], hoverable?: boolean): HTMLDivElement;
 /*****************/
@@ -32,4 +37,4 @@ declare function _parseMarkdownIntoContent(mdContent: string, separator?: string
  * @param separator - character to divide items on the same indentation level.
  * @returns HTML div containing the telescoping text.
  */
-declare function createTelescopicTextFromBulletedList(listContent: string, separator?: string, hoverable?: boolean): HTMLDivElement;
+declare function createTelescopicTextFromBulletedList(listContent: string, { separator, hoverable }?: Config): HTMLDivElement;

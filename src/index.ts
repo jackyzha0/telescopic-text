@@ -22,6 +22,16 @@ interface TelescopeNode {
   telescopicOut: TelescopicOutput;
 }
 
+interface Config {
+  separator?: string;
+  hoverable?: boolean;
+}
+
+const _DEFAULT_CONFIG: Config = {
+  separator: " ",
+  hoverable: false,
+}
+
 // time; recorded to prevent recursive text expansion on single hover
 let _lastHoveredTime = Date.now();
 
@@ -240,8 +250,7 @@ function _parseMarkdownIntoContent(
  */
 function createTelescopicTextFromBulletedList(
   listContent: string,
-  separator: string = " ",
-  hoverable: boolean = false,
+  { separator, hoverable }: Config = _DEFAULT_CONFIG,
 ): HTMLDivElement {
   const content = _parseMarkdownIntoContent(listContent, separator);
   return _createTelescopicText([content], hoverable);
