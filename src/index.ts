@@ -23,7 +23,7 @@ interface TelescopeNode {
 }
 
 // time; recorded to prevent recursive text expansion on single hover
-let lastTime = Date.now();
+let _lastHoveredTime = Date.now();
 
 // Internal recursive function to hydrate a node with a line object.
 function _hydrate(line: Content, node: any, hoverable: boolean = false) {
@@ -58,10 +58,10 @@ function _hydrate(line: Content, node: any, hoverable: boolean = false) {
       if (hoverable) {
         // expand the text if text was not moused over immediately before
         detail.addEventListener("mouseover", () => {
-          if (Date.now() - lastTime > 10) {
+          if (Date.now() - _lastHoveredTime > 10) {
             detail.classList.remove("close");
             detail.classList.add("open");
-            lastTime = Date.now();
+            _lastHoveredTime = Date.now();
           }
         });
       }
