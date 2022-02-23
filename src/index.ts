@@ -28,8 +28,8 @@ interface Config {
 }
 
 const _DEFAULT_CONFIG: Config = {
-  separator: " ",
-  hoverable: false,
+  separator: " ",   // character to divide items on the same indentation level
+  hoverable: false, // whether text can be expanded on hover
 }
 
 // time; recorded to prevent recursive text expansion on single hover
@@ -245,7 +245,7 @@ function _parseMarkdownIntoContent(
  * Parses a markdown-compatible bulleted list into an HTML div that contains the telescoping text specified by the bullet list content.
  *
  * @param listContent - Content in the form of a bulleted list where items on the same level are combined using the `separator` parameter.
- * @param separator - character to divide items on the same indentation level.
+ * @param config - Configuration options provided to create interactive, telescopic text.
  * @returns HTML div containing the telescoping text.
  */
 function createTelescopicTextFromBulletedList(
