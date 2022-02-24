@@ -33,7 +33,7 @@ interface Config {
   hoverable?: boolean;
 }
 
-const _DEFAULT_CONFIG: Config = {
+const DefaultConfig: Config = {
   separator: " ",   // character to divide items on the same indentation level
   hoverable: false, // whether text can be expanded on hover
 }
@@ -256,7 +256,7 @@ function _parseMarkdownIntoContent(
  */
 function createTelescopicTextFromBulletedList(
   listContent: string,
-  { separator, hoverable }: Config = _DEFAULT_CONFIG,
+  { separator, hoverable }: Config = DefaultConfig,
 ): HTMLDivElement {
   const content = _parseMarkdownIntoContent(listContent, separator);
   return _createTelescopicText([content], hoverable);

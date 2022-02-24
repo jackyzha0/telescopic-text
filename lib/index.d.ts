@@ -18,10 +18,16 @@ interface TelescopeNode {
     telescopicOut: TelescopicOutput;
 }
 interface Config {
+    /**
+    * Character used to separate entries on the same level. Defaults to a single space (" ")
+    */
+    /**
+    * Character used to separate entries on the same level. Defaults to a single space (" ")
+    */
     separator?: string;
     hoverable?: boolean;
 }
-declare const _DEFAULT_CONFIG: Config;
+declare const DefaultConfig: Config;
 declare let _lastHoveredTime: number;
 declare function _hydrate(line: Content, node: any, hoverable?: boolean): void;
 declare function _createTelescopicText(content: Content[], hoverable?: boolean): HTMLDivElement;
