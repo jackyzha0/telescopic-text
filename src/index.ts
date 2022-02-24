@@ -30,19 +30,22 @@ interface Config {
   * Character used to separate entries on the same level. Defaults to a single space (" ")
   */
   separator?: string;
-  hoverable?: boolean;
+  /**
+  * If true, allows sections to expand automatically on mouse over rather than requiring a click.
+  */
+  shouldExpandOnMouseOver?: boolean;
 }
 
 const DefaultConfig: Config = {
   separator: " ",   // character to divide items on the same indentation level
-  hoverable: false, // whether text can be expanded on hover
+  shouldExpandOnMouseOver: false, // whether text can be expanded on hover
 }
 
 // time; recorded to prevent recursive text expansion on single hover
 let _lastHoveredTime = Date.now();
 
 // Internal recursive function to hydrate a node with a line object.
-function _hydrate(line: Content, node: any, hoverable: boolean = false) {
+function _hydrate(line: Content, node: any, shouldExpandOnMouseOver: boolean = false) {
   let lineText = line.text;
 
   if (line.replacements.length > 0) {
@@ -70,8 +73,8 @@ function _hydrate(line: Content, node: any, hoverable: boolean = false) {
         detail.classList.add("open");
       });
 
-      // if the text is hoverable,
-      if (hoverable) {
+      // if the text is shouldExpandOnMouseOver,
+      if (shouldExpandOnMouseOver) {
         // expand the text if text was not moused over immediately before
         detail.addEventListener("mouseover", () => {
           if (Date.now() - _lastHoveredTime > 10) {
@@ -94,7 +97,7 @@ function _hydrate(line: Content, node: any, hoverable: boolean = false) {
       };
       const expanded = document.createElement("span");
       expanded.classList.add("expanded");
-      _hydrate(newLine, expanded, hoverable);
+      _hydrate(newLine, expanded, shouldExpandOnMouseOver);
 
       // append to parent
       detail.appendChild(expanded);
@@ -124,12 +127,12 @@ function _hydrate(line: Content, node: any, hoverable: boolean = false) {
 
 // Helper function to create a new `<div>` node containing the
 // telescoping text.
-function _createTelescopicText(content: Content[], hoverable: boolean = false) {
+function _createTelescopicText(content: Content[], shouldExpandOnMouseOver: boolean = false) {
   const letter = document.createElement("div");
   letter.id = "telescope";
   content.forEach((line) => {
     const newNode = document.createElement("p");
-    _hydrate(line, newNode, hoverable);
+    _hydrate(line, newNode, shouldExpandOnMouseOver);
     letter.appendChild(newNode);
   });
   return letter;
@@ -256,8 +259,8 @@ function _parseMarkdownIntoContent(
  */
 function createTelescopicTextFromBulletedList(
   listContent: string,
-  { separator, hoverable }: Config = DefaultConfig,
+  { separator, shouldExpandOnMouseOver }: Config = DefaultConfig,
 ): HTMLDivElement {
   const content = _parseMarkdownIntoContent(listContent, separator);
-  return _createTelescopicText([content], hoverable);
+  return _createTelescopicText([content], shouldExpandOnMouseOver);
 }
