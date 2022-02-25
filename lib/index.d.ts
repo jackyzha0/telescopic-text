@@ -17,8 +17,20 @@ interface TelescopeNode {
     depth: number;
     telescopicOut: TelescopicOutput;
 }
-declare function _hydrate(line: Content, node: any): void;
-declare function _createTelescopicText(content: Content[]): HTMLDivElement;
+interface Config {
+    /**
+    * Character used to separate entries on the same level. Defaults to a single space (" ")
+    */
+    separator?: string;
+    /**
+    * If true, allows sections to expand automatically on mouse over rather than requiring a click.
+    */
+    shouldExpandOnMouseOver?: boolean;
+}
+declare const DefaultConfig: Config;
+declare let _lastHoveredTime: number;
+declare function _hydrate(line: Content, node: any, shouldExpandOnMouseOver?: boolean): void;
+declare function _createTelescopicText(content: Content[], shouldExpandOnMouseOver?: boolean): HTMLDivElement;
 /*****************/
 /*****************/
 declare function _parseMarkdown(mdContent: string): TelescopicOutput;
@@ -28,7 +40,7 @@ declare function _parseMarkdownIntoContent(mdContent: string, separator?: string
  * Parses a markdown-compatible bulleted list into an HTML div that contains the telescoping text specified by the bullet list content.
  *
  * @param listContent - Content in the form of a bulleted list where items on the same level are combined using the `separator` parameter.
- * @param separator - character to divide items on the same indentation level.
+ * @param config - Configuration options provided to create interactive, telescopic text.
  * @returns HTML div containing the telescoping text.
  */
-declare function createTelescopicTextFromBulletedList(listContent: string, separator?: string): HTMLDivElement;
+declare function createTelescopicTextFromBulletedList(listContent: string, { separator, shouldExpandOnMouseOver }?: Config): HTMLDivElement;
