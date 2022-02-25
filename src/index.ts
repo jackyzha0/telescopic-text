@@ -70,7 +70,6 @@ function _hydrate(line: Content, node: any, shouldExpandOnMouseOver: boolean = f
         detail.classList.add("open");
       });
 
-      // if the text is shouldExpandOnMouseOver,
       if (shouldExpandOnMouseOver) {
         // expand the text if text was not moused over immediately before
         detail.addEventListener("mouseover", () => {
