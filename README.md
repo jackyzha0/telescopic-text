@@ -32,6 +32,10 @@ The above example would yield the following text: "Texts are boundless shapeshif
 *NOTE*: the parsing logic is robust to different indentation levels, but for most compatible experience, you should normalize the indentations so that each nested bullet is differentiated by a standard set of spaces. We also currently only support `*`, `-`, and `+` bullet indicators.
 
 ## Usage
+Create some expandable text using the bullet list format shown above. You can then test out how your poem looks and feels and get a basic code snippet that recreates it using the [test bed](https://poems.verses.xyz/test)!
+
+See the full instructions below:
+
 You can load it directly via CDN as follows:
 Put this anywhere inside the `head` of your HTML file.
 
