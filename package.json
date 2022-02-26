@@ -1,6 +1,6 @@
 {
   "name": "telescopic-text",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A open-source library to help with creating expandable text",
   "main": "index.js",
   "scripts": {
