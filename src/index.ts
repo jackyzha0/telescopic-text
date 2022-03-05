@@ -37,11 +37,11 @@ interface Config {
    */
   separator?: string;
   /**
-   * If true, allows sections to expand automatically on mouse over rather than requiring a click.
+   * If true, allows sections to expand automatically on mouse over rather than requiring a click. Defaults to false.
    */
   shouldExpandOnMouseOver?: boolean;
   /**
-   * A mode that designates what form the input text is in and should be interpreted as.
+   * A mode that designates what form the input text is in and should be interpreted as. Defaults to 'text'.
    */
   textMode?: TextMode;
 }

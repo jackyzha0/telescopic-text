@@ -72,35 +72,48 @@ Basic usage may look something like this:
 </body>
 ```
 
-You can check out a more detailed example in `demo/index.html`
-
-## Types
+### Advanced Usage Options
+For further, customization, we provide a configuration object that can be passed into the function for different behavior. 
 ```typescript
-interface Content {
-  text: string          // Original string content in the line
-  replacements: Line[]  // Sections of the original text to replace/expand
-}
-
-interface Line {
-  og: string           // the original string to replace
-  new: string          // the replacement string
-  replacements: Line[] // nested replacements to apply on the resultant line afterwards
-}
-
-// Default function to create a new `<div>` node containing the
-// telescoping text from bullet points
-function createTelescopicTextFromBulletedList(content: string)
-
-// This is the fundamental data structure for parsing native bullet lists into telescoping text.
-interface NewContent {
-  text: string;
-  expansions?: NewContent[];
-  // This is always a space right now, but could be extended to use any
-  // separator between content.
+// The configuration for how you want telescopic text to be parsed and rendered
+interface Config {
+  /**
+   * Character used to separate entries on the same level. Defaults to a single space (" ")
+   */
   separator?: string;
+  /**
+   * If true, allows sections to expand automatically on mouse over rather than requiring a click. Defaults to false.
+   */
+  shouldExpandOnMouseOver?: boolean;
+  /**
+   * A mode that designates what form the input text is in and should be interpreted as. Defaults to 'text'.
+   */
+  textMode?: TextMode;
 }
 ```
 
+You would use this by passing a custom configuration object into the function. For example, this is how you would create telescopic text with custom HTML tags:
+```javascript
+const content = `
+* Some <b>rich</b> text
+  * with <i>nested</i> <b>rich</b> text
+`
+const config = { textMode: TextMode.Html };
+const poemContent = createTelescopicTextFromBulletedList(content, config);
+```
+
+You can check out a more detailed example in `demo/index.html`
+
+
+
+## Types
+```typescript
+// Default function to create a new `<div>` node containing the
+// telescoping text from bullet points
+function createTelescopicTextFromBulletedList(content: string, config?: Config)
+```
+
 ## Future Work
+See our issues page for all the features we're thinking about exploring. Some examples include:
 - Supporting infinite expansion with `...`
 - Concept of shapeshifting text in general... these are not always expansions.
