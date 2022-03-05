@@ -17,20 +17,32 @@ interface TelescopeNode {
     depth: number;
     telescopicOut: TelescopicOutput;
 }
+/**
+ * Modes that designate what form the input text is in and should be interpreted as.
+ */
+declare enum TextMode {
+    Text = "text",
+    Html = "html"
+}
+declare const TextModeValues: TextMode[];
 interface Config {
     /**
-    * Character used to separate entries on the same level. Defaults to a single space (" ")
-    */
+     * Character used to separate entries on the same level. Defaults to a single space (" ")
+     */
     separator?: string;
     /**
-    * If true, allows sections to expand automatically on mouse over rather than requiring a click.
-    */
+     * If true, allows sections to expand automatically on mouse over rather than requiring a click.
+     */
     shouldExpandOnMouseOver?: boolean;
+    /**
+     * A mode that designates what form the input text is in and should be interpreted as.
+     */
+    textMode?: TextMode;
 }
-declare const DefaultConfig: Config;
+declare type CreateTelescopicTextConfig = Pick<Config, "shouldExpandOnMouseOver" | "textMode">;
 declare let _lastHoveredTime: number;
-declare function _hydrate(line: Content, node: any, shouldExpandOnMouseOver?: boolean): void;
-declare function _createTelescopicText(content: Content[], shouldExpandOnMouseOver?: boolean): HTMLDivElement;
+declare function _hydrate(line: Content, node: any, config?: CreateTelescopicTextConfig): void;
+declare function _createTelescopicText(content: Content[], config?: CreateTelescopicTextConfig): HTMLDivElement;
 /*****************/
 /*****************/
 declare function _parseMarkdown(mdContent: string): TelescopicOutput;
@@ -43,4 +55,4 @@ declare function _parseMarkdownIntoContent(mdContent: string, separator?: string
  * @param config - Configuration options provided to create interactive, telescopic text.
  * @returns HTML div containing the telescoping text.
  */
-declare function createTelescopicTextFromBulletedList(listContent: string, { separator, shouldExpandOnMouseOver }?: Config): HTMLDivElement;
+declare function createTelescopicTextFromBulletedList(listContent: string, { separator, shouldExpandOnMouseOver, textMode, }?: Config): HTMLDivElement;

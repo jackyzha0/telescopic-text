@@ -1,0 +1,103 @@
+<head>
+  <script src="./lib/index.js"></script>
+  <link href="./lib/index.css" rel="stylesheet" />
+  <title>boundless shapeshifters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <div id="poems"></div>
+
+  <script>
+    const poems = [
+      {
+        content: `
+* Texts
+    * Melodies
+    * for
+    * words
+        * communes of
+        * letters
+* are
+* boundless shapeshifters,
+    * boundless shapeshifters (technicolor chameleons)`,
+      },
+      {
+        content: `
+* <a href="https://google.com">Texts</a>
+    * <a href="https://google.com">Melodies</a>
+    * for
+    * words
+* are
+* <b>boundless shapeshifters</b>,
+    * boundless shapeshifters (technicolor chameleons)`,
+        config: { textMode: TextMode.Html },
+      },
+    ];
+    const poemContainer = document.getElementById("poems");
+    poems.forEach((poem) => {
+      const poemDiv = document.createElement("div");
+      const { config, content } = poem;
+      const poemContent = createTelescopicTextFromBulletedList(content, config);
+      poemDiv.appendChild(poemContent);
+      poemContainer.appendChild(poemDiv);
+    });
+  </script>
+</body>
+<style>
+  body {
+    background: #ede8e4;
+  }
+
+  #poems {
+    color: #141312;
+    margin: 10vh 35vw;
+    font-size: 1.3rem;
+    line-height: 2.5rem;
+    font-family: "Libre Baskerville", serif;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 2px;
+    border: 2px solid #1c1716;
+    box-shadow: 5px 5px 41px 11px rgba(0, 0, 0, 0.4);
+  }
+
+  figure {
+    margin: 0 0 3vh;
+  }
+
+  figure > figcaption {
+    font-size: 1rem;
+    text-align: right;
+    font-style: italic;
+    opacity: 0.6;
+  }
+
+  @media only screen and (max-width: 1600px) {
+    #text-container {
+      margin: 10vh 20vw;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    #text-container {
+      margin: 10vh 5vw;
+    }
+  }
+
+  :root {
+    --telescope-highlight: #95abe655;
+    --telescope-highlight-hover: #95abe699;
+    --telescope-text-color: #1f2021;
+  }
+
+  .signoff {
+    font-size: 1rem;
+  }
+</style>
