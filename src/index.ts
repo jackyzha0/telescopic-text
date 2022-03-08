@@ -22,28 +22,85 @@ interface TelescopeNode {
   telescopicOut: TelescopicOutput;
 }
 
+/**
+ * Modes that designate what form the input text is in and should be interpreted as.
+ */
+enum TextMode {
+  Text = "text",
+  /**
+   * NOTE: this uses `innerHtml` under the hood, so should not be used with untrusted user input and can have
+   * unexpected behavior if the HTML is not valid.
+   */
+  Html = "html",
+}
+const TextModeValues = Object.values(TextMode);
+
 interface Config {
   /**
-  * Character used to separate entries on the same level. Defaults to a single space (" ")
-  */
+   * Character used to separate entries on the same level. Defaults to a single space (" ")
+   */
   separator?: string;
   /**
-  * If true, allows sections to expand automatically on mouse over rather than requiring a click.
-  */
+   * If true, allows sections to expand automatically on mouse over rather than requiring a click. Defaults to false.
+   */
   shouldExpandOnMouseOver?: boolean;
+  /**
+   * A mode that designates what form the input text is in and should be interpreted as. Defaults to 'text'.
+   */
+  textMode?: TextMode;
+  /**
+   *
+   */
+  htmlContainerTag?: keyof HTMLElementTagNameMap;
 }
 
-const DefaultConfig: Config = {
-  separator: " ",   // character to divide items on the same indentation level
-  shouldExpandOnMouseOver: false, // whether text can be expanded on hover
-}
+type CreateTelescopicTextConfig = Pick<
+  Config,
+  "shouldExpandOnMouseOver" | "textMode" | "htmlContainerTag"
+>;
 
 // time; recorded to prevent recursive text expansion on single hover
 let _lastHoveredTime = Date.now();
 
 // Internal recursive function to hydrate a node with a line object.
-function _hydrate(line: Content, node: any, shouldExpandOnMouseOver: boolean = false) {
+function _hydrate(
+  line: Content,
+  node: any,
+  config: CreateTelescopicTextConfig = {}
+) {
+  const {
+    shouldExpandOnMouseOver,
+    textMode = TextMode.Text,
+    htmlContainerTag = "span",
+  } = config;
   let lineText = line.text;
+
+  function createLineNode(lineText: string) {
+    switch (textMode) {
+      case TextMode.Text:
+        // TODO: move this special character replacement functionality into a general purpose config
+        // passed in at the top-level.
+        if (lineText.includes("@Q ")) {
+          // if this is a quotation, turn it into a <blockquote> element
+          const [before, quote] = lineText.split("@Q ", 2);
+          const pre = document.createTextNode(before);
+          node.appendChild(pre);
+          const el = document.createElement("blockquote");
+          el.innerText = quote;
+          return el;
+        } else {
+          return document.createTextNode(lineText);
+        }
+
+      case TextMode.Html:
+        const newNode = document.createElement(htmlContainerTag);
+        newNode.innerHTML = lineText;
+        return newNode;
+
+      default:
+        throw new Error("Invalid text mode found: " + textMode);
+    }
+  }
 
   if (line.replacements.length > 0) {
     // only iterate lines if there are actually things to replace
@@ -83,7 +140,8 @@ function _hydrate(line: Content, node: any, shouldExpandOnMouseOver: boolean = f
 
       const summary = document.createElement("span");
       summary.classList.add("summary");
-      summary.appendChild(document.createTextNode(replacement.og));
+      const newNode = createLineNode(replacement.og);
+      summary.appendChild(newNode);
       detail.appendChild(summary);
 
       // create inner text, recursively hydrate
@@ -93,7 +151,7 @@ function _hydrate(line: Content, node: any, shouldExpandOnMouseOver: boolean = f
       };
       const expanded = document.createElement("span");
       expanded.classList.add("expanded");
-      _hydrate(newLine, expanded, shouldExpandOnMouseOver);
+      _hydrate(newLine, expanded, config);
 
       // append to parent
       detail.appendChild(expanded);
@@ -105,30 +163,22 @@ function _hydrate(line: Content, node: any, shouldExpandOnMouseOver: boolean = f
     }
   } else {
     // otherwise, this is a leaf node
-    if (lineText.includes("@Q ")) {
-      // if this is a quotation, turn it into a <blockquote> element
-      const [before, quote] = lineText.split("@Q ", 2);
-      const pre = document.createTextNode(before);
-      node.appendChild(pre);
-      const el = document.createElement("blockquote");
-      el.innerText = quote;
-      node.appendChild(el);
-    } else {
-      // otherwise, plain text node
-      const el = document.createTextNode(lineText);
-      node.appendChild(el);
-    }
+    const newNode = createLineNode(lineText);
+    node.appendChild(newNode);
   }
 }
 
 // Helper function to create a new `<div>` node containing the
 // telescoping text.
-function _createTelescopicText(content: Content[], shouldExpandOnMouseOver: boolean = false) {
+function _createTelescopicText(
+  content: Content[],
+  config: CreateTelescopicTextConfig = {}
+) {
   const letter = document.createElement("div");
   letter.id = "telescope";
   content.forEach((line) => {
     const newNode = document.createElement("p");
-    _hydrate(line, newNode, shouldExpandOnMouseOver);
+    _hydrate(line, newNode, config);
     letter.appendChild(newNode);
   });
   return letter;
@@ -255,8 +305,19 @@ function _parseMarkdownIntoContent(
  */
 function createTelescopicTextFromBulletedList(
   listContent: string,
-  { separator, shouldExpandOnMouseOver }: Config = DefaultConfig,
+  { separator = " ", ...createTelescopicTextConfig }: Config = {}
 ): HTMLDivElement {
+  const { textMode = TextMode.Text } = createTelescopicTextConfig;
+  if (!TextModeValues.includes(textMode)) {
+    throw new Error(
+      `Invalid textMode provided! Please input one of ${TextModeValues.map(
+        (s) => `'${s}'`
+      ).join(", ")}`
+    );
+  }
   const content = _parseMarkdownIntoContent(listContent, separator);
-  return _createTelescopicText([content], shouldExpandOnMouseOver);
+  return _createTelescopicText([content], {
+    textMode,
+    ...createTelescopicTextConfig,
+  });
 }
