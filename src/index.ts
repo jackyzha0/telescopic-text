@@ -27,6 +27,10 @@ interface TelescopeNode {
  */
 enum TextMode {
   Text = "text",
+  /**
+   * NOTE: this uses `innerHtml` under the hood, so should not be used with untrusted user input and can have
+   * unexpected behavior if the HTML is not valid.
+   */
   Html = "html",
 }
 const TextModeValues = Object.values(TextMode);
@@ -44,11 +48,15 @@ interface Config {
    * A mode that designates what form the input text is in and should be interpreted as. Defaults to 'text'.
    */
   textMode?: TextMode;
+  /**
+   *
+   */
+  htmlContainerTag?: keyof HTMLElementTagNameMap;
 }
 
 type CreateTelescopicTextConfig = Pick<
   Config,
-  "shouldExpandOnMouseOver" | "textMode"
+  "shouldExpandOnMouseOver" | "textMode" | "htmlContainerTag"
 >;
 
 // time; recorded to prevent recursive text expansion on single hover
@@ -60,7 +68,11 @@ function _hydrate(
   node: any,
   config: CreateTelescopicTextConfig = {}
 ) {
-  const { shouldExpandOnMouseOver, textMode = TextMode.Text } = config;
+  const {
+    shouldExpandOnMouseOver,
+    textMode = TextMode.Text,
+    htmlContainerTag = "span",
+  } = config;
   let lineText = line.text;
 
   function createLineNode(lineText: string) {
@@ -81,7 +93,7 @@ function _hydrate(
         }
 
       case TextMode.Html:
-        const newNode = document.createElement("span");
+        const newNode = document.createElement(htmlContainerTag);
         newNode.innerHTML = lineText;
         return newNode;
 
@@ -293,12 +305,9 @@ function _parseMarkdownIntoContent(
  */
 function createTelescopicTextFromBulletedList(
   listContent: string,
-  {
-    separator = " ",
-    shouldExpandOnMouseOver = false,
-    textMode = TextMode.Text,
-  }: Config = {}
+  { separator = " ", ...createTelescopicTextConfig }: Config = {}
 ): HTMLDivElement {
+  const { textMode = TextMode.Text } = createTelescopicTextConfig;
   if (!TextModeValues.includes(textMode)) {
     throw new Error(
       `Invalid textMode provided! Please input one of ${TextModeValues.map(
@@ -308,7 +317,7 @@ function createTelescopicTextFromBulletedList(
   }
   const content = _parseMarkdownIntoContent(listContent, separator);
   return _createTelescopicText([content], {
-    shouldExpandOnMouseOver,
     textMode,
+    ...createTelescopicTextConfig,
   });
 }
