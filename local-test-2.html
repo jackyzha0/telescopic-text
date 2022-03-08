@@ -1,0 +1,408 @@
+<head>
+  <script src="./lib/index.js"></script>
+  <link href="./lib/index.css" rel="stylesheet" />
+  <title>verses verses</title>
+  <meta
+    name="description"
+    content="A collection of verses from the verses community."
+  />
+  <meta property="og:image" content="/assets/android-chrome-512x512.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="apple-touch-icon"
+    sizes="180x180"
+    href="/assets/apple-touch-icon.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="32x32"
+    href="/assets/favicon-32x32.png"
+  />
+  <link
+    rel="icon"
+    type="image/png"
+    sizes="16x16"
+    href="/assets/favicon-16x16.png"
+  />
+  <link rel="manifest" href="/assets/site.webmanifest" />
+  <meta name="msapplication-TileColor" content="#da532c" />
+  <meta name="theme-color" content="#ffffff" />
+</head>
+<body>
+  <div id="versesLogo">
+    <a href="https://verses.xyz">
+      <img id="versesLogoImg" src="./logo.png" />
+    </a>
+  </div>
+  <div id="text-container">
+    <p>A collection of telescopic verses from the verses community.</p>
+    <div id="poems"></div>
+    <hr />
+    <h3 style="margin-bottom: 0">Want your own?</h3>
+    <p style="margin-top: 0.2rem">
+      <a href="/test">Use the test bed</a> to trial an interactive version of
+      your poem.
+    </p>
+  </div>
+
+  <script>
+    const poems = [
+      {
+        title: "the world is a sacret object",
+        author: "kelsey chen",
+        content: `
+- the world
+    - all of it
+        - all that
+        - is
+            - exists
+                - is moved
+                    - is moving
+                        - breathes
+                            - has ever existed, including you
+- is
+    - is always
+        - is irrevocably
+- a sacred object
+    - a sacred thing
+        - something moving
+            - something waiting to be moved
+                - something awaiting dialogue
+                    - called into communion
+                        - a condensation of vital breath
+                            - anima
+                                - there
+                                    - here
+                                        - an immovably sacred object
+                                            - an immovably sacred object, and nothing is to be done to it.
+                                                - an immovably sacred object,
+                                                - and nothing
+                                                - is to be
+                                                - done about it.
+                                                    - done to it--
+                                                    - to seize it
+                                                        - to take it for yourself
+                                                            - to try and keep it
+                                                                - to try to grasp it
+                                                    - is to lose it.
+                                                        - is to lose yourself.`,
+      },
+      {
+        title: "peach pits",
+        author: "kelsey chen",
+        content: `
+- There is
+- a peach tree
+- outside
+- my window
+- that hovers
+- without a neck.
+    - without a neck. Gripping my own,
+    - I watch it drift.
+        - I watch it drift. Have you noticed how animals
+        - cover
+            - instinctively cover
+        - their bodies?
+            - the softest parts of their bodies?
+                - the softest parts of their bodies,
+                - the same way?
+                    - the same way
+                    - when in fear and in thought?
+                        - when in fear and in thought?
+                        - Is it because thinking is fearful?
+                            - Is it because fearing is thoughtful?
+- I noticed
+    - I noticed myself noticing
+        - I held softly my neck, watching myself notice
+- not
+- the rain
+- but
+- the blue.
+    - the blue. The runway
+    - was iced.
+        - was iced: It took an hour to
+        - defrost.
+            - let go of its own body.
+    - The salt
+        - The salt turning asphalt
+            - The salt turning sleet soft asphalt
+    - an uncanny
+        - an uncanny kind of
+    - gem.
+- Even in
+- all this
+- it
+    - what is tensed across scale
+        - what is tensed across scale is
+        - beautiful
+            - unutterably beautiful
+        - like that. This thing
+- was my favorite.
+    - was my favorite to see.
+        - was my favorite to see. The warm light against such an atmospheric cold.
+- I wanted
+    - On that runway, I wanted
+- to run away.
+    - to run away very badly.
+        - to run away very badly; I didn't know that
+        - things
+            - two things
+                - two things so starkly different
+        - could be
+        - soft together.
+            - so soft together.
+                - tender like that, with each other.
+                    - tender like that, with each other. Knowing the dusk and not the chokehold.
+- I thought I saw
+- peach pits
+    - two peach pits
+        - two peach pits--tiny spiked hearts in the cold--
+- rolling.
+    - rolling across that runway.`,
+      },
+      {
+        title: "boundless shapeshifters",
+        author: "spencer chang",
+        content: `
+* Texts
+    * Melodies
+        * clear notes
+            * clear notes, interdependent chords
+                * clear notes, interdependent chords, harmonic tones
+    * for
+    * words
+        * communes of
+        * letters
+            * curving letters
+                * curving, elegant letters
+                    * curving, elegant, giving letters
+* are
+* boundless shapeshifters,
+    * boundless shapeshifters (technicolor chameleons),
+        * boundless shapeshifters (technicolor chameleons, expanding universes),
+            * boundless shapeshifters (technicolor chameleons, expanding universes, vibrant dancers),
+* zealous freedom fighters,
+    * zealous freedom fighters, champions of liberty,
+        * zealous freedom fighters, champions of liberty, harbingers of divinity
+* sacred
+    * sacred (laden with gravitas)
+        * sacred (laden with gravitas, revered by followers)
+            * sacred (laden with gravitas, revered by followers, imparts visceral feeling)
+* holders of space
+    * holders of space and keepers of time
+        * holders of space and keepers of time and protectors of life`,
+      },
+      {
+        title: "knowing",
+        author: "jacky zhao",
+        content: `- They
+    \t- The man at the bookstore
+    \t\t- I went to the
+    \t\t- bookstore
+    \t\t\t- little rickety bookstore off of 5th Avenue
+    \t\t\t\t- that bookstore at the intersection of 5th Avenue and Adam Street I always went to when I was feeling
+    \t\t\t\t- rather melancholic.
+    \t\t\t\t\t- melancholic.
+    \t\t\t\t\t- When my father first passed,
+    \t\t\t\t\t\t- I don't think I ever truly knew
+    \t\t\t\t\t\t- my father.
+    \t\t\t\t\t\t\t- my father -- he was absent for most of my childhood. He would always go on
+    \t\t\t\t\t\t\t- 'business trips' and
+    \t\t\t\t\t\t\t\t- 'business trips'  with his work friends and coming home smelling like smoke and alcohol. Sometimes, he would
+    \t\t\t\t\t\t\t- come often come home
+    \t\t\t\t\t\t\t- days later than he said he would.
+    \t\t\t\t\t\t\t\t-  days later than he said he would. Who knows what he actually did.
+    \t\t\t\t\t\t\t- He was never cruel, but the love that was supposed to be unconditionally present was unconditionally gone.
+    \t\t\t\t\t\t- When he passed, I felt an overwhelming
+    \t\t\t\t\t\t- sense of confusion.
+    \t\t\t\t\t\t\t- sense of confusion. I remember they said he died of natural causes -- yet nothing had seemed to be wrong with him. In the rare hours he was back at home, he seemed healthy and almost fit at times, often going for early runs.
+    \t\t\t\t\t\t- Mom didn't seem to care about his death, almost as if she was numb to the pain, already used to his absence. Really, it only took a few weeks for her to find someone else and
+    \t\t\t\t\t\t- left me to fend for myself.
+    \t\t\t\t\t\t\t- left me to fend for myself. To her, I was just a remnant of a past life she was ready to forget.
+    \t\t\t\t\t- I used to
+    \t\t\t\t\t- hole up here during
+    \t\t\t\t\t\t- curl up in the little bean bag corner by the window
+    \t\t\t\t\t\t- when it rained.
+    \t\t\t\t\t\t\t- when it rained. On days when it was especially wet,
+    \t\t\t\t\t\t\t- the tabby
+    \t\t\t\t\t\t\t\t- the orange tabby (the owner said his name was Flan but to be honest, I'm not sure I heard it right)
+    \t\t\t\t\t\t\t- that lived in the bookstore always came up for snuggles.
+    \t\t\t\t\t\t\t- I'd always look out the window, looking for that familiar speckly salt-and-pepper hair
+    \t\t\t\t\t\t\t- walking by.
+    \t\t\t\t\t\t\t\t- walking by. I don't know what I was hoping for -- to see him again? For him to finally face me and tell me
+    \t\t\t\t\t\t\t\t- he was sorry
+    \t\t\t\t\t\t\t\t\t- "I'm sorry"
+    \t\t\t\t\t\t\t\t\t\t- "I'm sorry"? For him to apologize for
+    \t\t\t\t\t\t\t\t\t\t- being absent?
+    \t\t\t\t\t\t\t\t\t\t\t- being absent? For him to hold out his arms and tell me that he's going to do better and for him to bring our family back together?
+    \t\t\t\t\t\t\t\t- To this day, I still don't really know why I go back to this bookstore so much.
+    \t\t\t\t\t\t- It was a nice place for the
+    \t\t\t\t\t- workdays when I couldn't pull myself together enough to show up to my dead-end job.
+    \t\t\t\t- Something about the poorly painted "Old Goat Bookstore" sign and the smell of old books just made me
+    \t\t\t\t- feel comfortable.
+    \t\t\t\t\t- feel at home. Maybe it was the smell of the study back when Mom and I used to still have the house we
+    \t\t\t\t\t- lived in.
+    \t\t\t\t\t\t- had. I remember that there was always that second-hand copy of The Midnight Library that I used to read as a kid. Or the copy of Le Petit Prince that always sat, dusty, on that desk of his. That was before we had to sell it because of the stupid housing market and all the debt. That world felt so long ago.
+    \t\t\t\t- In any case, the bookstore visit was
+    \t\t- yesterday. At the checkout, there was
+    \t\t- a man
+    \t\t\t- a lanky looking man in a trenchcoat
+    \t\t- scanning the shelves.
+    \t\t\t- scanning the shelves, as if looking for something among the book store giftcards and mugs.
+    \t\t- He
+    - seemed
+    - interesting.
+    \t- interesting. I don't mean this in a judgemental way, but more of a
+    \t- "wow, he seems eccentric" kind of way.
+    \t\t- way that told me he wasn't from around the area. I looked for a bit too long and the cashier told me to hurry up.
+    \t\t- I studied
+    \t\t- him
+    \t\t\t- him --
+    \t\t\t- all his wrinkles and scars on his face
+    \t\t\t\t- the bags under his eyes carrying the weight of over half a century of weariness, the wrinkles a careful folding that seemed to count the years like a tree trunk has rings
+    \t\t\t- --
+    \t\t- as he paid for his
+    \t\t- books.
+    \t\t\t- books. Something stirred in me when I saw the name Antoine de Saint-Exupéry on one.
+    \t\t- There was something that was
+    \t\t- off.
+    \t\t\t- off -- maybe it was his long coat reached his boots or his curly salt-and-pepper hair being
+    \t\t\t- slightly wet.
+    \t\t\t\t- slightly wet. Or maybe it was just his face?
+    \t\t\t\t\t- Or maybe it was just his face? There was the signature rosy-red of someone who was out in the cold for
+    \t\t\t\t\t- far too long.
+    \t\t\t\t\t\t- far too long. Something smelled vaguely of smoke that might have been from a cigar.
+    \t\t\t- I pushed the door open to a little jingle from the door chime. I stood outside for a bit after to
+    \t\t\t- recollect myself.
+    \t\t\t\t- recollect myself. A familiar *ting-ling* rang through the crisp winter air as the man exited the bookstore.
+    \t\t\t\t- He stood there for a moment.
+    \t\t\t\t- I muttered something.
+    \t\t\t\t\t- @Q I always liked to read The Little Prince when I was younger.
+    \t\t\t\t- He glanced over.
+    \t\t\t\t\t- @Q Yeah? I used to read it a lot too. Actually, I stopped reading for a while, but I'm picking things up again. My son loves this book. Little bugger can't sleep without it. He lost his old copy so I'm getting him another one.
+    \t\t\t\t- We stood there for a while in the billowing wind.
+    \t\t\t\t- There was something about him that just invited me to keep talking.
+    \t\t\t\t\t- @Q You know, my dad once told me a quote from Heraclitus. He said that "No man steps in the same river twice. The second time around, both man and river are different than they were before." The books are the same, but we change between each reading. The world changes, too. Sometimes I like to think that he were here to re-read those books to me. Just so he could see that I've grown.
+    \t\t\t\t- Finally, silence.
+    \t\t\t\t\t- @Q There is no point trying to prove to the past how worthy you are now.
+    \t\t\t\t- I glanced over at his slender frame, realizing now that he looks a lot like my Dad. He pulled out a cigar and lit it.
+    \t\t\t\t- He continued.
+    \t\t\t\t\t- @Q "There are patterns to life… Rhythms. It is so easy, while trapped in just one life, to imagine that times of sadness or tragedy or failure or fear are a result of that particular existence." Matthew Haig. Things may be difficult. You may hold grudges against people and hate them for the cruelties they committed against you, but that does nothing to change your life. It may not be the life you wanted back then, but you are a different person now. You've stepped out of the river for the second time. This may not be your ideal life but you can always choose it. No matter what your life is, choosing it changes everything. In choosing it, you give back to yourself the ability to enjoy the present and all of the joys that come with that.
+    \t\t\t\t- He exhaled a puff of smoke. I looked up at the
+    \t\t\t\t- beautifully blue sky.
+    \t\t\t\t\t- beautifully blue sky, now tinged slightly orange as the sun descended slowly.
+    \t\t\t\t\t- I chose to believe that yesterday I had met some reincarnation of my father.
+    \t\t\t\t\t\t- I chose to believe that yesterday was the day I stopped
+    \t\t\t\t\t\t- hating the desert for its dryness and instead admired it for its ability to hold wells.
+    \t\t\t\t\t\t- As Saint-Exupéry said...
+    \t\t\t\t\t\t\t- @Q “What makes the desert beautiful,' said the little prince, 'is that somewhere it hides a well...”
+    \t- It was a sunny day after all.`,
+      },
+    ];
+  </script>
+  <script>
+    const poemContainer = document.getElementById("poems");
+    poems.forEach((poem) => {
+      const poemDiv = document.createElement("div");
+      const header = document.createElement("h2");
+      header.innerText = poem.title;
+      poemDiv.appendChild(header);
+      const poemContent = createTelescopicTextFromBulletedList(poem.content);
+      poemDiv.appendChild(poemContent);
+      const signoff = document.createElement("p");
+      signoff.innerHTML = `&mdash; ${poem.author}`;
+      poemDiv.appendChild(signoff);
+      poemContainer.appendChild(poemDiv);
+    });
+  </script>
+</body>
+<style>
+  body {
+    background: #ede8e4;
+    margin: 6vh 35vw;
+  }
+
+  #text-container {
+    color: #141312;
+    font-size: 1.3rem;
+    line-height: 2.5rem;
+    font-family: "Libre Baskerville", serif;
+  }
+
+  /* img {
+    width: 100%;
+    border-radius: 2px;
+    border: 2px solid #1c1716;
+    box-shadow: 5px 5px 41px 11px rgba(0, 0, 0, 0.4);
+  }
+
+  figure {
+    margin: 0 0 3vh;
+  }
+
+  figure > figcaption {
+    font-size: 1rem;
+    text-align: right;
+    font-style: italic;
+    opacity: 0.6;
+  } */
+
+  @media only screen and (max-width: 1600px) {
+    body {
+      margin: 6vh 15vw;
+    }
+  }
+
+  @media only screen and (max-width: 800px) {
+    body {
+      margin: 6vh 5vw;
+    }
+  }
+
+  #telescope .details {
+    background-color: #f3c68779;
+  }
+
+  #telescope .details.close:hover {
+    background-color: #e3a54e72;
+  }
+
+  .signoff {
+    font-size: 1rem;
+  }
+
+  #versesLogo {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  #versesLogoImg {
+    width: 140px;
+    height: 140px;
+  }
+
+  hr {
+    border: none;
+  }
+
+  hr::before {
+    /* content: "* * * * *"; */
+    content: "◉ ◉ ◉ ◉ ◉ ◉";
+    display: block;
+    text-align: center;
+  }
+</style>

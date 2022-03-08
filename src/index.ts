@@ -207,6 +207,9 @@ function _parseMarkdown(mdContent: string): TelescopicOutput {
   // This is essentially a trie data structure to parse out all the bullet points
   // The algorithm works by assuming that any time you encounter a longer depth than the current one,
   // you are moving onto the next line.
+  const defaultDepth =
+    lines[0].match(`^\\s*(${RegexEscapedBulletSeparators.join("|")})`)?.[0]
+      ?.length - 1 || 0;
   for (const line of lines) {
     const trimmedLine = line.trim();
     if (!trimmedLine.length) {
@@ -238,7 +241,7 @@ function _parseMarkdown(mdContent: string): TelescopicOutput {
     const strippedLine = trimmedLine.substring(1).replace(/^\s+/, "");
     // Add current content / node to the stack
     const currentContent: NewContent = { text: strippedLine, expansions: [] };
-    if (currentDepth === 0) {
+    if (currentDepth === defaultDepth) {
       telescopicOut.push(currentContent);
       nodeStack[nodeStack.length - 1] = {
         ...restLastNode,
