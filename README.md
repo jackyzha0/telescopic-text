@@ -92,7 +92,7 @@ interface Config {
 }
 ```
 
-You would use this by passing a custom configuration object into the function. For example, this is how you would create telescopic text with custom HTML tags:
+You would use this by passing a custom configuration object into the function in order to override any of the defaults above. For example, this is how you would create telescopic text with custom HTML tags:
 ```javascript
 const content = `
 * Some <b>rich</b> text
