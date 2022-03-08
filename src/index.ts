@@ -158,7 +158,7 @@ function _hydrate(
       node.appendChild(detail);
     }
     if (lineText) {
-      const endText = document.createTextNode(lineText);
+      const endText = createLineNode(lineText);
       node.appendChild(endText);
     }
   } else {
