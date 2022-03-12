@@ -1,0 +1,25 @@
+name: npm-publish
+on:
+  push:
+    branches:
+      - main
+jobs:
+  npm-publish:
+    name: npm-publish
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+    - name: Publish if version has been updated
+      uses: pascalgn/npm-publish-action@1.3.8
+      with:
+        tag_name: "v%s"
+        tag_message: "v%s"
+        commit_pattern: "^v(\\S+)"
+        create_tag: "true"
+        publish_command: "npm"
+        publish_args: "--non-interactive"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+
