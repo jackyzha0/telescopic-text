@@ -18,7 +18,6 @@ jobs:
         commit_pattern: "^v(\\S+)"
         create_tag: "true"
         publish_command: "npm"
-        publish_args: "--non-interactive"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
