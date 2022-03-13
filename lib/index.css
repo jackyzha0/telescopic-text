@@ -15,6 +15,12 @@
   display: block !important;
 }
 
+#telescope hr {
+  border: 1px solid var(--telescope-text-color);
+  margin: 1em 0;
+  display: block !important;
+}
+
 #telescope .details {
   display: inline;
   border-radius: 3px;
