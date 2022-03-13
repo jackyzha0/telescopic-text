@@ -34,7 +34,7 @@ enum TextMode {
   Html = "html",
 }
 // internal fn to typeguard TextMode
-const isTextMode = (e: any): e is TextMode[keyof TextMode] => Object.values(TextMode).includes(e)
+const isTextMode = (e: any): e is TextMode => Object.values(TextMode).includes(e)
 
 interface Config {
   /**
