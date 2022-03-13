@@ -48,9 +48,21 @@
         * *sacred*
             * sacred (laden with gravitas)
         * ---
-        * > holders of space
+        * holders of space
             * holders of *space* and keepers of time
                 * > holders of space and keepers of time and protectors of life`,
+        config: {
+          specialCharacters: {
+            // quote
+            "^> (.*)$": (lineText) => {
+              const el = document.createElement("blockquote");
+              const span = document.createElement("span");
+              span.appendChild(document.createTextNode(lineText));
+              el.appendChild(span);
+              return el;
+            },
+          }
+        }
       },
     ];
     const poemContainer = document.getElementById("poems");

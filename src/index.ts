@@ -80,14 +80,6 @@ interface TextReplacements {
 // - bold
 // - emphasis
 const DefaultReplacements: TextReplacements = {
-  // quote
-  "^> (.*)$": (lineText) => {
-    const el = document.createElement("blockquote");
-    const span = document.createElement("span");
-    span.appendChild(document.createTextNode(lineText));
-    el.appendChild(span);
-    return el;
-  },
   // line break
   "---": (lineText) => {
     return document.createElement("hr");
@@ -116,14 +108,18 @@ function _hydrate(
     shouldExpandOnMouseOver,
     textMode = TextMode.Text,
     htmlContainerTag = "span",
-    specialCharacters = DefaultReplacements,
+    specialCharacters = {},
   } = config;
+
   let lineText = line.text;
 
   function createLineNode(lineText: string) {
     switch (textMode) {
       case TextMode.Text:
-        for (const [specialCharRegex, replacementFn] of Object.entries(specialCharacters)) {
+        for (const [specialCharRegex, replacementFn] of Object.entries({
+          ...DefaultReplacements,
+          ...specialCharacters
+        })) {
           const matches = lineText.match(specialCharRegex)
           if (matches) {
             const container = document.createElement(htmlContainerTag);
