@@ -102,69 +102,63 @@ function _hydrate(
     }
   }
 
-  if (line.replacements.length > 0) {
-    // only iterate lines if there are actually things to replace
-    for (let i = 0; i < line.replacements.length; i++) {
-      const replacement = line.replacements[i];
+  // only iterate lines if there are actually things to replace
+  for (let i = 0; i < line.replacements.length; i++) {
+    const replacement = line.replacements[i];
 
-      // split single occurrence of replacement pattern
-      const [before, ...afterarr] = lineText.split(replacement.og);
-      const after = afterarr.join(replacement.og);
+    // split single occurrence of replacement pattern
+    const [before, ...afterarr] = lineText.split(replacement.og);
+    const after = afterarr.join(replacement.og);
 
-      // consume
-      lineText = after;
+    // consume
+    lineText = after;
 
-      // add old real text
-      node.appendChild(document.createTextNode(before));
+    // add old real text
+    node.appendChild(createLineNode(before));
 
-      // create actual telescope
-      const detail = document.createElement("span");
-      detail.classList.add("details", "close");
+    // create actual telescope
+    const detail = document.createElement("span");
+    detail.classList.add("details", "close");
 
-      // add expand on click handler
-      detail.addEventListener("click", () => {
-        detail.classList.remove("close");
-        detail.classList.add("open");
+    // add expand on click handler
+    detail.addEventListener("click", () => {
+      detail.classList.remove("close");
+      detail.classList.add("open");
+    });
+
+    if (shouldExpandOnMouseOver) {
+      // expand the text if text was not moused over immediately before
+      detail.addEventListener("mouseover", () => {
+        if (Date.now() - _lastHoveredTime > 10) {
+          detail.classList.remove("close");
+          detail.classList.add("open");
+          _lastHoveredTime = Date.now();
+        }
       });
-
-      if (shouldExpandOnMouseOver) {
-        // expand the text if text was not moused over immediately before
-        detail.addEventListener("mouseover", () => {
-          if (Date.now() - _lastHoveredTime > 10) {
-            detail.classList.remove("close");
-            detail.classList.add("open");
-            _lastHoveredTime = Date.now();
-          }
-        });
-      }
-
-      const summary = document.createElement("span");
-      summary.classList.add("summary");
-      const newNode = createLineNode(replacement.og);
-      summary.appendChild(newNode);
-      detail.appendChild(summary);
-
-      // create inner text, recursively hydrate
-      const newLine = {
-        text: replacement.new,
-        replacements: replacement.replacements,
-      };
-      const expanded = document.createElement("span");
-      expanded.classList.add("expanded");
-      _hydrate(newLine, expanded, config);
-
-      // append to parent
-      detail.appendChild(expanded);
-      node.appendChild(detail);
     }
-    if (lineText) {
-      const endText = createLineNode(lineText);
-      node.appendChild(endText);
-    }
-  } else {
-    // otherwise, this is a leaf node
-    const newNode = createLineNode(lineText);
-    node.appendChild(newNode);
+
+    const summary = document.createElement("span");
+    summary.classList.add("summary");
+    const newNode = createLineNode(replacement.og);
+    summary.appendChild(newNode);
+    detail.appendChild(summary);
+
+    // create inner text, recursively hydrate
+    const newLine = {
+      text: replacement.new,
+      replacements: replacement.replacements,
+    };
+    const expanded = document.createElement("span");
+    expanded.classList.add("expanded");
+    _hydrate(newLine, expanded, config);
+
+    // append to parent
+    detail.appendChild(expanded);
+    node.appendChild(detail);
+  }
+  if (lineText) {
+    const endText = createLineNode(lineText);
+    node.appendChild(endText);
   }
 }
 
