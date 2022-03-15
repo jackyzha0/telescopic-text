@@ -70,7 +70,7 @@ type CreateTelescopicTextConfig = Pick<
 let _lastHoveredTime = Date.now();
 
 interface TextReplacements {
-  // Each entry is keyed by its prefix string match (e.g. @Q)
+  // Each entry is keyed by its regex string match
   // It defines a function that takes in the current line of text as well as its parent node
   // and
   [key: string]: (lineText: string) => HTMLElement
