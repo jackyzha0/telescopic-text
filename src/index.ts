@@ -77,11 +77,10 @@ interface TextReplacements {
 }
 
 // By default, only these special characters have text replacements
-// - blockquotes
 // - line breaks
 // - bold
 // - emphasis
-const DefaultReplacements: TextReplacements = {
+export const DefaultReplacements: TextReplacements = {
   // line break
   "---": () => {
     return document.createElement("hr");
@@ -110,7 +109,7 @@ function _hydrate(
     shouldExpandOnMouseOver,
     textMode = TextMode.Text,
     htmlContainerTag = "span",
-    specialCharacters = {},
+    specialCharacters = DefaultReplacements,
   } = config;
 
   let lineText = line.text;
@@ -118,10 +117,7 @@ function _hydrate(
   function createLineNode(lineText: string) {
     switch (textMode) {
       case TextMode.Text:
-        for (const [specialCharRegex, replacementFn] of Object.entries({
-          ...DefaultReplacements,
-          ...specialCharacters
-        })) {
+        for (const [specialCharRegex, replacementFn] of Object.entries(specialCharacters)) {
           const matches = lineText.match(specialCharRegex)
           if (matches) {
             const container = document.createElement(htmlContainerTag);

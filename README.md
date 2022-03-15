@@ -118,6 +118,11 @@ interface TextReplacements {
 }
 ```
 
+By default, only these special characters have text replacements
+- line breaks (`---`)
+- bold (`*...*`)
+- emphasis (`_...*`)
+
 You would use this by passing a custom configuration object into the function in order to override any of the defaults above. For example, this is how you would create telescopic text with custom HTML tags:
 ```javascript
 const content = `
