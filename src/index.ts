@@ -83,7 +83,7 @@ interface TextReplacements {
 // - emphasis
 const DefaultReplacements: TextReplacements = {
   // line break
-  "---": (lineText) => {
+  "---": () => {
     return document.createElement("hr");
   },
   // bold
