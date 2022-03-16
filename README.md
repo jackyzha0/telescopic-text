@@ -100,9 +100,22 @@ interface Config {
 }
 ```
 
+You would use this by passing a custom configuration object into the function in order to override any of the defaults above. For example, this is how you would create telescopic text with custom HTML tags:
+
+```javascript
+const content = `
+* Some <b>rich</b> text
+  * with <i>nested</i> <b>rich</b> text
+`
+const config = { textMode: TextMode.Html };
+const poemContent = createTelescopicTextFromBulletedList(content, config);
+```
+
+You can check out a more detailed example in `demo/index.html`
+
 If you are using plain 'text' as the textMode, you can also define an object containing special characters and the rules for how to replace them.
 
-```ts
+```typescript
 interface TextReplacements {
   // Each entry is keyed by its regex string match 
   // It defines a function that takes in the current line of text as well as its parent node
@@ -121,21 +134,14 @@ interface TextReplacements {
 By default, only these special characters have text replacements
 - line breaks (`---`)
 - bold (`*...*`)
-- emphasis (`_...*`)
+- emphasis (`_..._`)
+To disable this, you can pass in an empty object for special characters:
 
-You would use this by passing a custom configuration object into the function in order to override any of the defaults above. For example, this is how you would create telescopic text with custom HTML tags:
-```javascript
-const content = `
-* Some <b>rich</b> text
-  * with <i>nested</i> <b>rich</b> text
-`
-const config = { textMode: TextMode.Html };
-const poemContent = createTelescopicTextFromBulletedList(content, config);
+```typescript
+const poemContent = createTelescopicTextFromBulletedList(content, {
+  specialCharacters: {}
+});
 ```
-
-You can check out a more detailed example in `demo/index.html`
-
-
 
 ## Types
 ```typescript
