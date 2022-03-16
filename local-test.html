@@ -28,8 +28,8 @@
       },
       {
         content: `
-* <a href="https://google.com">Texts</a> with
-    * <a href="https://google.com">Melodies</a> and
+* <a href="https://google.com">Texts</a>
+    * <a href="https://google.com">Melodies</a>
     * <em>for</em>
     * words
 * are
@@ -42,14 +42,27 @@
         * Texts
             * Melodies
         * are
-        * boundless shapeshifters,
+        * _boundless shapeshifters,_
             * boundless shapeshifters (technicolor chameleons),
         * zealous freedom fighters,
-        * sacred
+        * *sacred*
             * sacred (laden with gravitas)
+        * ---
         * holders of space
-            * holders of space and keepers of time
-                * holders of space and keepers of time and protectors of life`,
+            * holders of *space* and keepers of time
+                * > holders of space and keepers of time and protectors of life`,
+        config: {
+          specialCharacters: {
+            // quote
+            "^> (.*)$": (lineText) => {
+              const el = document.createElement("blockquote");
+              const span = document.createElement("span");
+              span.appendChild(document.createTextNode(lineText));
+              el.appendChild(span);
+              return el;
+            },
+          }
+        }
       },
     ];
     const poemContainer = document.getElementById("poems");

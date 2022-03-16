@@ -28,7 +28,7 @@ declare enum TextMode {
      */
     Html = "html"
 }
-declare const TextModeValues: TextMode[];
+declare function isTextMode(e: any): e is TextMode[keyof TextMode];
 interface Config {
     /**
      * Character used to separate entries on the same level. Defaults to a single space (" ")
@@ -43,12 +43,20 @@ interface Config {
      */
     textMode?: TextMode;
     /**
-     *
+     * Determines the wrapper element type for HTML elements. Defaults to 'span'.
      */
     htmlContainerTag?: keyof HTMLElementTagNameMap;
+    /**
+     * Only valid when textMode is 'text'. Used to insert HTML element like blockquotes, line breaks, bold, and emphasis in plain text mode.
+     */
+    specialCharacters?: TextReplacements;
 }
-declare type CreateTelescopicTextConfig = Pick<Config, "shouldExpandOnMouseOver" | "textMode" | "htmlContainerTag">;
+declare type CreateTelescopicTextConfig = Pick<Config, "shouldExpandOnMouseOver" | "textMode" | "htmlContainerTag" | "specialCharacters">;
 declare let _lastHoveredTime: number;
+interface TextReplacements {
+    [key: string]: (lineText: string) => HTMLElement;
+}
+declare const DefaultReplacements: TextReplacements;
 declare function _hydrate(line: Content, node: any, config?: CreateTelescopicTextConfig): void;
 declare function _createTelescopicText(content: Content[], config?: CreateTelescopicTextConfig): HTMLDivElement;
 /*****************/

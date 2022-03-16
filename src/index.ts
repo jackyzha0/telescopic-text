@@ -33,7 +33,10 @@ enum TextMode {
    */
   Html = "html",
 }
-const TextModeValues = Object.values(TextMode);
+// internal fn to typeguard TextMode
+function isTextMode(e: any): e is TextMode[keyof TextMode] {
+  return Object.values(TextMode).includes(e);
+}
 
 interface Config {
   /**
@@ -49,18 +52,52 @@ interface Config {
    */
   textMode?: TextMode;
   /**
-   *
+   * Determines the wrapper element type for HTML elements. Defaults to 'span'.
    */
   htmlContainerTag?: keyof HTMLElementTagNameMap;
+  /**
+   * Only valid when textMode is 'text'. Used to insert HTML element like blockquotes, line breaks, bold, and emphasis in plain text mode.
+   */
+  specialCharacters?: TextReplacements;
 }
 
 type CreateTelescopicTextConfig = Pick<
   Config,
-  "shouldExpandOnMouseOver" | "textMode" | "htmlContainerTag"
+  "shouldExpandOnMouseOver" | "textMode" | "htmlContainerTag" | "specialCharacters"
 >;
 
 // time; recorded to prevent recursive text expansion on single hover
 let _lastHoveredTime = Date.now();
+
+interface TextReplacements {
+  // Each entry is keyed by its regex string match
+  // It defines a function that takes in the current line of text as well as its parent node
+  // and
+  [key: string]: (lineText: string) => HTMLElement
+}
+
+// By default, only these special characters have text replacements
+// - line breaks
+// - bold
+// - emphasis
+export const DefaultReplacements: TextReplacements = {
+  // line break
+  "---": () => {
+    return document.createElement("hr");
+  },
+  // bold
+  "\\*(.*)\\*": (lineText) => {
+    const el = document.createElement("strong");
+    el.appendChild(document.createTextNode(lineText));
+    return el;
+  },
+  // emphasis
+  "_(.*)_": (lineText) => {
+    const el = document.createElement("em");
+    el.appendChild(document.createTextNode(lineText));
+    return el;
+  }
+}
 
 // Internal recursive function to hydrate a node with a line object.
 function _hydrate(
@@ -72,25 +109,29 @@ function _hydrate(
     shouldExpandOnMouseOver,
     textMode = TextMode.Text,
     htmlContainerTag = "span",
+    specialCharacters = DefaultReplacements,
   } = config;
+
   let lineText = line.text;
 
   function createLineNode(lineText: string) {
     switch (textMode) {
       case TextMode.Text:
-        // TODO: move this special character replacement functionality into a general purpose config
-        // passed in at the top-level.
-        if (lineText.includes("@Q ")) {
-          // if this is a quotation, turn it into a <blockquote> element
-          const [before, quote] = lineText.split("@Q ", 2);
-          const pre = document.createTextNode(before);
-          node.appendChild(pre);
-          const el = document.createElement("blockquote");
-          el.innerText = quote;
-          return el;
-        } else {
-          return document.createTextNode(lineText);
+        for (const [specialCharRegex, replacementFn] of Object.entries(specialCharacters)) {
+          const matches = lineText.match(specialCharRegex)
+          if (matches) {
+            const container = document.createElement(htmlContainerTag);
+            const [wholeMatch, innerMatchText, _] = matches
+            // compute pre and post match text
+            const [pre, post] = lineText.split(wholeMatch)
+            container.appendChild(createLineNode(pre))
+            container.appendChild(replacementFn(innerMatchText))
+            container.appendChild(createLineNode(post))
+            return container
+          }
         }
+        // leaf, no special characters
+        return document.createTextNode(lineText);
 
       case TextMode.Html:
         const newNode = document.createElement(htmlContainerTag);
@@ -102,66 +143,62 @@ function _hydrate(
     }
   }
 
-  if (line.replacements.length > 0) {
-    // only iterate lines if there are actually things to replace
-    for (let i = 0; i < line.replacements.length; i++) {
-      const replacement = line.replacements[i];
+  // only iterate lines if there are actually things to replace
+  for (let i = 0; i < line.replacements.length; i++) {
+    const replacement = line.replacements[i];
 
-      // split single occurrence of replacement pattern
-      const [before, ...afterarr] = lineText.split(replacement.og);
-      const after = afterarr.join(replacement.og);
+    // split single occurrence of replacement pattern
+    const [before, ...after] = lineText.split(replacement.og);
+    lineText = after.join(replacement.og);
 
-      // consume
-      lineText = after;
+    // add old real text
+    node.appendChild(createLineNode(before));
 
-      // add old real text
-      node.appendChild(document.createTextNode(before));
+    // create actual telescope
+    const detail = document.createElement("span");
+    detail.classList.add("details", "close");
 
-      // create actual telescope
-      const detail = document.createElement("span");
-      detail.classList.add("details", "close");
+    // add expand on click handler
+    detail.addEventListener("click", () => {
+      detail.classList.remove("close");
+      detail.classList.add("open");
+    });
 
-      // add expand on click handler
-      detail.addEventListener("click", () => {
-        detail.classList.remove("close");
-        detail.classList.add("open");
+    if (shouldExpandOnMouseOver) {
+      // expand the text if text was not moused over immediately before
+      detail.addEventListener("mouseover", () => {
+        if (Date.now() - _lastHoveredTime > 10) {
+          detail.classList.remove("close");
+          detail.classList.add("open");
+          _lastHoveredTime = Date.now();
+        }
       });
-
-      if (shouldExpandOnMouseOver) {
-        // expand the text if text was not moused over immediately before
-        detail.addEventListener("mouseover", () => {
-          if (Date.now() - _lastHoveredTime > 10) {
-            detail.classList.remove("close");
-            detail.classList.add("open");
-            _lastHoveredTime = Date.now();
-          }
-        });
-      }
-
-      const summary = document.createElement("span");
-      summary.classList.add("summary");
-      const newNode = createLineNode(replacement.og);
-      summary.appendChild(newNode);
-      detail.appendChild(summary);
-
-      // create inner text, recursively hydrate
-      const newLine = {
-        text: replacement.new,
-        replacements: replacement.replacements,
-      };
-      const expanded = document.createElement("span");
-      expanded.classList.add("expanded");
-      _hydrate(newLine, expanded, config);
-
-      // append to parent
-      detail.appendChild(expanded);
-      node.appendChild(detail);
     }
-    if (lineText) {
-      const endText = createLineNode(lineText);
-      node.appendChild(endText);
-    }
-  } else {
+
+    const summary = document.createElement("span");
+    summary.classList.add("summary");
+    const newNode = createLineNode(replacement.og);
+    summary.appendChild(newNode);
+    detail.appendChild(summary);
+
+    // create inner text, recursively hydrate
+    const newLine = {
+      text: replacement.new,
+      replacements: replacement.replacements,
+    };
+    const expanded = document.createElement("span");
+    expanded.classList.add("expanded");
+    _hydrate(newLine, expanded, config);
+
+    // append to parent
+    detail.appendChild(expanded);
+    node.appendChild(detail);
+  }
+  if (lineText) {
+    const endText = createLineNode(lineText);
+    node.appendChild(endText);
+  }
+  if (lineText) {
     // otherwise, this is a leaf node
     const newNode = createLineNode(lineText);
     node.appendChild(newNode);
@@ -313,9 +350,9 @@ function createTelescopicTextFromBulletedList(
   { separator = " ", ...createTelescopicTextConfig }: Config = {}
 ): HTMLDivElement {
   const { textMode = TextMode.Text } = createTelescopicTextConfig;
-  if (!TextModeValues.includes(textMode)) {
+  if (!isTextMode(textMode)) {
     throw new Error(
-      `Invalid textMode provided! Please input one of ${TextModeValues.map(
+      `Invalid textMode provided! Please input one of ${Object.values(TextMode).map(
         (s) => `'${s}'`
       ).join(", ")}`
     );

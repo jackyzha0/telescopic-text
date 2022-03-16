@@ -89,10 +89,19 @@ interface Config {
    * A mode that designates what form the input text is in and should be interpreted as. Defaults to 'text'.
    */
   textMode?: TextMode;
+  /**
+   * Determines the wrapper element type for HTML elements. Defaults to 'span'.
+   */
+  htmlContainerTag?: keyof HTMLElementTagNameMap;
+  /**
+   * Only valid when textMode is 'text'. Used to insert HTML element like blockquotes, line breaks, bold, and emphasis in plain text mode.
+   */
+  specialCharacters?: TextReplacements;
 }
 ```
 
 You would use this by passing a custom configuration object into the function in order to override any of the defaults above. For example, this is how you would create telescopic text with custom HTML tags:
+
 ```javascript
 const content = `
 * Some <b>rich</b> text
@@ -104,7 +113,35 @@ const poemContent = createTelescopicTextFromBulletedList(content, config);
 
 You can check out a more detailed example in `demo/index.html`
 
+If you are using plain 'text' as the textMode, you can also define an object containing special characters and the rules for how to replace them.
 
+```typescript
+interface TextReplacements {
+  // Each entry is keyed by its regex string match 
+  // It defines a function that takes in the current line of text as well as its parent node
+  // and
+  [key: string]: (lineText: string) => HTMLElement
+}
+
+// for example, here's a text replacement rule for bolding text that is wrapped with *
+"\\*(.*)\\*": (lineText) => {
+  const el = document.createElement("strong");
+  el.appendChild(document.createTextNode(lineText));
+  return el;
+}
+```
+
+By default, only these special characters have text replacements
+- line breaks (`---`)
+- bold (`*...*`)
+- emphasis (`_..._`)
+To disable this, you can pass in an empty object for special characters:
+
+```typescript
+const poemContent = createTelescopicTextFromBulletedList(content, {
+  specialCharacters: {}
+});
+```
 
 ## Types
 ```typescript

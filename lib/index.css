@@ -8,11 +8,17 @@
   color: var(--telescope-text-color);
 }
 
-#telescope blockquote {
+#telescope#telescope blockquote {
   margin-left: 0;
   padding-left: 1rem;
   border-left: 3px solid var(--telescope-text-color);
-  display: block !important;
+  display: block;
+}
+
+#telescope#telescope hr {
+  border: 1px solid var(--telescope-text-color);
+  margin: 1em 0;
+  display: block;
 }
 
 #telescope .details {
