@@ -80,7 +80,7 @@ interface TextReplacements {
 // - line breaks
 // - bold
 // - emphasis
-export const DefaultReplacements: TextReplacements = {
+const DefaultReplacements: TextReplacements = {
   // line break
   "---": () => {
     return document.createElement("hr");
