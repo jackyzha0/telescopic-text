@@ -6,6 +6,8 @@ An open-source library to help with creating expandable text.
 
 Inspired by [StretchText](https://en.wikipedia.org/wiki/StretchText) and [TelescopicText](https://www.telescopictext.org/text/KPx0nlXlKTciC).
 
+# Background
+
 I've been thinking a lot about creating a browsable store of knowledge that provides something useful at all distance scales
 (e.g. viewing the entire library, just a subcategory, a single file, etc.) and concepts like Telescopic Text are a first step
 in creating more information scales than just a single document level.
@@ -16,21 +18,7 @@ This library is meant to be the start for anyone to create telescopic text, incl
 
 To create some telescopic text, you can use your favorite note-taking app or text editor that supports bullet lists and start by writing a full sentence or two in a starting bullet:
 
-```
-* Texts are boundless shapeshifters, zealous freedom fighters, sacred holders of space
-```
-
-At any point, you can break up the full sentence into separate lines. Bullets at the same indentation level are combined into the same sentence, and any indented bullets will be used as an expansion point for the parent bullet. By default, items on the same indentation level will be combined with a space ` `, but you can pass in a custom `separator` into the parsing function.
-
-```
-* Texts
-  * Clear notes
-* are boundless shapeshifters,
-  * are limitless shapeshifters,
-* zealous freedom fighters, sacred holders of space
-```
-
-The above example would yield the following text: "Texts are boundless shapeshifters, zealous freedom fighters, sacred holders of space" where "Texts" is expandable into "Clear notes" and "are boundless shapeshifters" is expandable into "are limitless shapeshifters".
+Head to https://poems.verses.xyz/test to use an interactive playground for writing in bullet lists and get the corresponding code that leverages this library to generate the interactive text for use on your own website.
 
 _NOTE_: the parsing logic is robust to different indentation levels, but for most compatible experience, you should normalize the indentations so that each nested bullet is differentiated by a standard set of spaces. We also currently only support `*`, `-`, and `+` bullet indicators.
 
