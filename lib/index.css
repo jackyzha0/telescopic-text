@@ -32,6 +32,20 @@
 #telescope .details.open {
   background-color: transparent;
   cursor: initial;
+   -webkit-animation: fadein 3s; /* Safari, Chrome and Opera > 12.1 */
+   -moz-animation: fadein 3s; /* Firefox < 16 */
+   -ms-animation: fadein 3s; /* Internet Explorer */
+   -o-animation: fadein 3s; /* Opera < 12.1 */
+   animation: fadein 3s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 #telescope .details.open > .summary, #telescope .details.close > .expanded {
