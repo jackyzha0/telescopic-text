@@ -195,10 +195,6 @@ function _hydrate(
     node.appendChild(detail);
   }
   if (lineText) {
-    const endText = createLineNode(lineText);
-    node.appendChild(endText);
-  }
-  if (lineText) {
     // otherwise, this is a leaf node
     const newNode = createLineNode(lineText);
     node.appendChild(newNode);
