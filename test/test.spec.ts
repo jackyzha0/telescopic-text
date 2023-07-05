@@ -7,5 +7,7 @@ const testBulletedLists = [
 ];
 
 describe("Telescopic Text", () => {
-  it("should work on a simple example", () => {});
+  it("should work on a simple example", () => {
+    assert.equal(testBulletedLists[0]);
+  });
 });
